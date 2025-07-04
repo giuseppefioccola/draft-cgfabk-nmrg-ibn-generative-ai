@@ -93,7 +93,7 @@ Future work should focus on interoperability, governance, and autonomous managem
 ## Overview of IBN
 
 IBN represents a paradigm shift in network management, aiming to bridge the gap between business objectives and network configurations.
-Unlike traditional networking, which requires manual, device-level configurations, IBN allows operators to specify high-level intents 
+Unlike traditional networking, which requires manual, device-level configurations, IBN allows operators to specify high-level intents
 (e.g., "ensure low latency for video traffic"), which the system then automatically translates, enforces, and continuously validates.
 Key references include {{IBN-UseCases}}, which outlines IBN use cases across enterprise, data center, and service provider environments.
 
