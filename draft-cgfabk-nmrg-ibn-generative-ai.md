@@ -9,19 +9,19 @@ number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WG Working Group
+area: "IRTF"
+workgroup: "Network Management"
 keyword:
  - next generation
  - unicorn
  - sparkling distributed ledger
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  group: "Network Management"
+  type: "Research Group"
+  mail: "nmrg@irtf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/nmrg"
+  github: "giuseppefioccola/draft-cgfabk-nmrg-ibn-generative-ai"
+  latest: "https://giuseppefioccola.github.io/draft-cgfabk-nmrg-ibn-generative-ai/draft-cgfabk-nmrg-ibn-generative-ai.html"
 
 author:
  -
