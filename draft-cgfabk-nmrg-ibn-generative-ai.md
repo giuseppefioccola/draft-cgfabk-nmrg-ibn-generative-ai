@@ -246,14 +246,14 @@ like "guarantee low latency for critical applications within zero-trust boundari
      +-------------------------+
        |        |    ...   \
        |        |           \
-+---------+ +----------+   +----------+  
++---------+ +----------+   +----------+
 | Adapter | | Adapter  |   | Adapter  |
 |   QoS   | | Security |...|     j    |
 +---------+ +----------+   +----------+
         \        |            /
          \       |    ...    /
          +-------------------+
-         |     Composite     | 
+         |     Composite     |
          |    Specialized    |
          |       Model       |
          +-------------------+
@@ -314,7 +314,7 @@ Key benchmarks include:
 - Deployment via Kubernetes with sidecar loading of adapters
 
 
-# Logical Architecture for Model Management 
+# Logical Architecture for Model Management
 
 ## Overview
 
