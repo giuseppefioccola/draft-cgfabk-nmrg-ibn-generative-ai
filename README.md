@@ -1,8 +1,8 @@
 <!-- regenerate: on (set to off if you edit this file) -->
 
-# TODO - Your title
+# Generative AI for Intent-Based Networking
 
-This is the working area for the individual Internet-Draft, "TODO - Your title".
+This is the working area for the individual Internet-Draft, "Generative AI for Intent-Based Networking".
 
 * [Editor's Copy](https://giuseppefioccola.github.io/draft-cgfabk-nmrg-ibn-generative-ai/#go.draft-cgfabk-nmrg-ibn-generative-ai.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-cgfabk-nmrg-ibn-generative-ai)
