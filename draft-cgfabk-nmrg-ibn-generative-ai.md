@@ -82,10 +82,12 @@ highly targeted generative models for Intent-Based Networking.
 
 # Introduction
 
-This document describes AI model specialization based on Low-Rank Adaptation (LoRA) for Intent-Based Networking.
-LoRA-based specialization offers a scalable, efficient path to creating highly targeted generative models for Intent-Based Networking (IBN).
+This document describes how transfer learning techniques can be adopted to design generative AI specialized models
+for Intent-Based Networking (IBN). It also describes tools, such as Low-rank Adaptation (LoRA), for achieving
+efficient and scalable transfer learning in data networks for designing targeted generative models for
+Intent-Based Networking (IBN).
 
-The concepts of LoRA Hub and LoRA Flow provide a modular framework for the rapid adaptation and composition of specialized knowledge,
+The objective of this document is define a framework for the rapid adaptation and composition of specialized knowledge,
 addressing the challenges identified in {{AI-Challenges}} and enabling the dynamic, multi-domain use cases of {{IBN-UseCases}}.
 
 Future work should focus on interoperability, governance, and autonomous management to fully realize the potential of this approach.
@@ -128,6 +130,21 @@ Without specialization, generic models risk generating suboptimal or even invali
 LoRA-based specialization enables the rapid creation and deployment of these focused models, supporting agile, intent-driven network operations
 while maintaining the scalability and cost-effectiveness required for wide deployment across heterogeneous infrastructures.
 
+## Transfer Learning
+
+Transfer learning enables pretrained models to adapt to specific tasks with significantly less data and computational resources.
+In the context of IBN, this approach offers a dual advantage: enhancing the efficiency of model training and improving the reliability of
+intent recognition and execution. Indeed, it avoids the need for building models from scratch, which is not only resource-intensive
+but also prone to overfitting due to limited labeled network-specific data. By fine-tuning models on domain-specific datasets, developers
+can quickly create robust models that interpret network intents with high accuracy. Furthermore, it facilitates cross-domain knowledge integration,
+allowing the model to generalize better across various networking environments and topologies.
+Additionally, continual learning mechanisms can be integrated into the LLM-based IBN framework to refine performance over time,
+incorporating feedback loops that learn from real-world interactions and user corrections.
+
+In conclusion, transfer learning significantly boosts the viability of LLM-based solutions in IBN by offering a cost-effective,
+accurate, and scalable method for intent interpretation and execution.
+This fusion of LLMs with transfer learning not only propels the automation of network operations but also ensures that the AI systems remain adaptive,
+interpretable, and aligned with organizational objectives in dynamic digital infrastructures.
 
 # Conventions and Definitions
 
