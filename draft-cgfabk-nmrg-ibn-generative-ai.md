@@ -60,6 +60,20 @@ author:
     city: Prato
     country: Italy
     email: emiljan.kolaj@siriustec.it
+ -
+    fullname: Marco Martalo'
+    organization: University of Cagliari
+    city: Cagliari
+    country: Italy
+    email: marco.martalo@unica.it
+ -
+    fullname: Virginia Pilloni
+    organization: University of Cagliari
+    city: Cagliari
+    country: Italy
+    email: virginia.pilloni@unica.it
+
+contributor:
 
 
 normative:
@@ -398,6 +412,22 @@ enabling scalability, continuous learning, and rapid specialization across distr
 Each function can be independently scaled and containerized, ensuring fault tolerance and efficient resource utilization.
 This logical separation allows efficient model lifecycle management, supports federated learning, and can integrate
 with standard IBN orchestrators via REST APIs or 3GPP-compatible interfaces.
+
+
+# Network Digital Twin Ontology
+
+The proposed generative AI–enabled Intent-Based Networking (IBN) architecture can be empowered with a Network Digital Twin (NDT) ontology,
+which serves as the semantic backbone that allows the system to represent, reason, and act upon the network’s physical and logical states in a unified way.
+Since the adapters are categorized by networking domain and intent granularity with different quality parameters, the ontology has to be quality-driven,
+meaning that its core entities and relationships are structured around quality indicators such as latency, throughput, reliability, and energy efficiency.
+The ontology relies on a semantic representation so that every network element (node, link, function) is described by its functional attributes
+together with quantifiable quality parameters. This enables intelligent alignment between service requirements and underlying resource capabilities through IBN.
+Within the overall generative AI-enabled IBN model, the ontology provides a multi-layered abstraction that connects service requirements with traffic parameters
+and physical infrastructure, supporting both top-down intent translation and bottom-up feedback from telemetry data. This ontology enhances the adapter fusion and
+orchestration processes by guiding AI models to interpret intents in the context of network quality objectives, select appropriate policy actions, and evaluate
+trade-offs between performance and efficiency. By embedding these semantic and quality-aware relationships, the NDT ontology enables the digital twin
+to operate as a continuously learning system, capable of dynamically optimizing network behavior, validating intents before deployment, and adapting to evolving conditions
+while maintaining compliance with quality and energy-efficiency goals.
 
 
 # Challenges and Research Directions
