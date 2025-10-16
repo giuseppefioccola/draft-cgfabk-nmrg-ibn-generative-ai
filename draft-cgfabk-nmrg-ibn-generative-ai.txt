@@ -5,13 +5,16 @@
 Network Management                                           P. Cassara'
 Internet-Draft                                                  A. Gotta
 Intended status: Informational                                  CNR-ISTI
-Expires: 8 January 2026                                      G. Fioccola
+Expires: 19 April 2026                                       G. Fioccola
                                                             A. Artigiani
                                                      Huawei Technologies
                                                                R. Burrai
                                                                 E. Kolaj
                                                        SIRIUS Technology
-                                                             7 July 2025
+                                                             M. Martalo'
+                                                              V. Pilloni
+                                                  University of Cagliari
+                                                         16 October 2025
 
 
                Generative AI for Intent-Based Networking
@@ -57,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 January 2026.
+   This Internet-Draft will expire on 19 April 2026.
 
 Copyright Notice
 
@@ -114,16 +117,17 @@ Table of Contents
      9.2.  Logical Architecture Diagram
      9.3.  Detailed Workflow
      9.4.  Models Adaptation, and Orchestration
-   10. Challenges and Research Directions
-     10.1.  Model Interoperability in LoRA Flow
-     10.2.  Ensuring Security and Robustness in Specialized Adapters
-     10.3.  Governance of LoRA Repositories
-     10.4.  Towards Autonomous Model Lifecycle Management in IBN
-   11. Security Considerations
-   12. IANA Considerations
-   13. References
-     13.1.  Normative References
-     13.2.  Informative References
+   10. Network Digital Twin Ontology
+   11. Challenges and Research Directions
+     11.1.  Model Interoperability in LoRA Flow
+     11.2.  Ensuring Security and Robustness in Specialized Adapters
+     11.3.  Governance of LoRA Repositories
+     11.4.  Towards Autonomous Model Lifecycle Management in IBN
+   12. Security Considerations
+   13. IANA Considerations
+   14. References
+     14.1.  Normative References
+     14.2.  Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -545,38 +549,68 @@ Table of Contents
    federated learning, and can integrate with standard IBN orchestrators
    via REST APIs or 3GPP-compatible interfaces.
 
-10.  Challenges and Research Directions
+10.  Network Digital Twin Ontology
 
-10.1.  Model Interoperability in LoRA Flow
+   The proposed generative AI–enabled Intent-Based Networking (IBN)
+   architecture can be empowered with a Network Digital Twin (NDT)
+   ontology, which serves as the semantic backbone that allows the
+   system to represent, reason, and act upon the network’s physical and
+   logical states in a unified way.  Since the adapters are categorized
+   by networking domain and intent granularity with different quality
+   parameters, the ontology has to be quality-driven, meaning that its
+   core entities and relationships are structured around quality
+   indicators such as latency, throughput, reliability, and energy
+   efficiency.  The ontology relies on a semantic representation so that
+   every network element (node, link, function) is described by its
+   functional attributes together with quantifiable quality parameters.
+   This enables intelligent alignment between service requirements and
+   underlying resource capabilities through IBN.  Within the overall
+   generative AI-enabled IBN model, the ontology provides a multi-
+   layered abstraction that connects service requirements with traffic
+   parameters and physical infrastructure, supporting both top-down
+   intent translation and bottom-up feedback from telemetry data.  This
+   ontology enhances the adapter fusion and orchestration processes by
+   guiding AI models to interpret intents in the context of network
+   quality objectives, select appropriate policy actions, and evaluate
+   trade-offs between performance and efficiency.  By embedding these
+   semantic and quality-aware relationships, the NDT ontology enables
+   the digital twin to operate as a continuously learning system,
+   capable of dynamically optimizing network behavior, validating
+   intents before deployment, and adapting to evolving conditions while
+   maintaining compliance with quality and energy-efficiency goals.
+
+11.  Challenges and Research Directions
+
+11.1.  Model Interoperability in LoRA Flow
 
    Ensuring consistent parameterization and preventing interference when
    fusing adapters.
 
-10.2.  Ensuring Security and Robustness in Specialized Adapters
+11.2.  Ensuring Security and Robustness in Specialized Adapters
 
    Preventing malicious adapter injection and ensuring adapters respect
    security constraints.
 
-10.3.  Governance of LoRA Repositories
+11.3.  Governance of LoRA Repositories
 
    Managing trust, versioning, and deprecation of adapters.
 
-10.4.  Towards Autonomous Model Lifecycle Management in IBN
+11.4.  Towards Autonomous Model Lifecycle Management in IBN
 
    Developing self-optimizing pipelines for adapter generation,
    validation, and retirement.
 
-11.  Security Considerations
+12.  Security Considerations
 
    TODO
 
-12.  IANA Considerations
+13.  IANA Considerations
 
    This document has no IANA actions.
 
-13.  References
+14.  References
 
-13.1.  Normative References
+14.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -587,7 +621,7 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-13.2.  Informative References
+14.2.  Informative References
 
    [AI-Challenges]
               François, J., Clemm, A., Papadimitriou, D., Fernandes, S.,
@@ -660,3 +694,17 @@ Authors' Addresses
    Prato
    Italy
    Email: emiljan.kolaj@siriustec.it
+
+
+   Marco Martalo'
+   University of Cagliari
+   Cagliari
+   Italy
+   Email: marco.martalo@unica.it
+
+
+   Virginia Pilloni
+   University of Cagliari
+   Cagliari
+   Italy
+   Email: virginia.pilloni@unica.it

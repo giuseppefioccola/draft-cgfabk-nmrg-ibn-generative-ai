@@ -11,29 +11,31 @@
 <meta content="Aldo Artigiani" name="author">
 <meta content="Riccardo Burrai" name="author">
 <meta content="Emiljan Kolaj" name="author">
+<meta content="Marco Martalo'" name="author">
+<meta content="Virginia Pilloni" name="author">
 <meta content="
        This document describes how to specialize AI models in order to offer a scalable, efficient path to creating
 highly targeted generative models for Intent-Based Networking. 
     " name="description">
-<meta content="xml2rfc 3.29.0" name="generator">
+<meta content="xml2rfc 3.30.2" name="generator">
 <meta content="next generation" name="keyword">
 <meta content="unicorn" name="keyword">
 <meta content="sparkling distributed ledger" name="keyword">
 <meta content="draft-cgfabk-nmrg-ibn-generative-ai-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.29.0
+  xml2rfc 3.30.2
     Python 3.12.11
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.6
     lxml 5.3.1
-    platformdirs 4.3.8
+    platformdirs 4.4.0
     pycountry 24.6.1
     PyYAML 6.0.2
-    requests 2.32.4
+    requests 2.32.5
     setuptools 80.9.0
-    wcwidth 0.2.13
+    wcwidth 0.2.14
 -->
 <link href="draft-cgfabk-nmrg-ibn-generative-ai.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1052,11 +1054,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ibn-generative-ai</td>
-<td class="right">July 2025</td>
+<td class="right">October 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Cassara', et al.</td>
-<td class="center">Expires 8 January 2026</td>
+<td class="center">Expires 19 April 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1071,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-cgfabk-nmrg-ibn-generative-ai-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-07-07" class="published">7 July 2025</time>
+<time datetime="2025-10-16" class="published">16 October 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-01-08">8 January 2026</time></dd>
+<dd class="expires"><time datetime="2026-04-19">19 April 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1100,6 +1102,14 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div class="author">
       <div class="author-name">E. Kolaj</div>
 <div class="org">SIRIUS Technology</div>
+</div>
+<div class="author">
+      <div class="author-name">M. Martalo'</div>
+<div class="org">University of Cagliari</div>
+</div>
+<div class="author">
+      <div class="author-name">V. Pilloni</div>
+<div class="org">University of Cagliari</div>
 </div>
 </dd>
 </dl>
@@ -1145,7 +1155,7 @@ highly targeted generative models for Intent-Based Networking.<a href="#section-
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 January 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 19 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1305,44 +1315,47 @@ highly targeted generative models for Intent-Based Networking.<a href="#section-
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-challenges-and-research-dir" class="internal xref">Challenges and Research Directions</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-model-interoperability-in-l" class="internal xref">Model Interoperability in LoRA Flow</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
-                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-ensuring-security-and-robus" class="internal xref">Ensuring Security and Robustness in Specialized Adapters</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.3">
-                <p id="section-toc.1-1.10.2.3.1"><a href="#section-10.3" class="auto internal xref">10.3</a>.  <a href="#name-governance-of-lora-reposito" class="internal xref">Governance of LoRA Repositories</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.4">
-                <p id="section-toc.1-1.10.2.4.1"><a href="#section-10.4" class="auto internal xref">10.4</a>.  <a href="#name-towards-autonomous-model-li" class="internal xref">Towards Autonomous Model Lifecycle Management in IBN</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-network-digital-twin-ontolo" class="internal xref">Network Digital Twin Ontology</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#section-13" class="auto internal xref">13</a>. <a href="#name-references" class="internal xref">References</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-challenges-and-research-dir" class="internal xref">Challenges and Research Directions</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.1">
-                <p id="section-toc.1-1.13.2.1.1"><a href="#section-13.1" class="auto internal xref">13.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-model-interoperability-in-l" class="internal xref">Model Interoperability in LoRA Flow</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.2">
-                <p id="section-toc.1-1.13.2.2.1"><a href="#section-13.2" class="auto internal xref">13.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="auto internal xref">11.2</a>.  <a href="#name-ensuring-security-and-robus" class="internal xref">Ensuring Security and Robustness in Specialized Adapters</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.3">
+                <p id="section-toc.1-1.11.2.3.1"><a href="#section-11.3" class="auto internal xref">11.3</a>.  <a href="#name-governance-of-lora-reposito" class="internal xref">Governance of LoRA Repositories</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.4">
+                <p id="section-toc.1-1.11.2.4.1"><a href="#section-11.4" class="auto internal xref">11.4</a>.  <a href="#name-towards-autonomous-model-li" class="internal xref">Towards Autonomous Model Lifecycle Management in IBN</a></p>
 </li>
             </ul>
 </li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#section-13" class="auto internal xref">13</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.14.1"><a href="#section-14" class="auto internal xref">14</a>. <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.1">
+                <p id="section-toc.1-1.14.2.1.1"><a href="#section-14.1" class="auto internal xref">14.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.2">
+                <p id="section-toc.1-1.14.2.2.1"><a href="#section-14.2" class="auto internal xref">14.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
-            <p id="section-toc.1-1.15.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.15.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
+            <p id="section-toc.1-1.16.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1920,70 +1933,89 @@ with standard IBN orchestrators via REST APIs or 3GPP-compatible interfaces.<a h
 </div>
 </section>
 </div>
-<div id="challenges-and-research-directions">
+<div id="network-digital-twin-ontology">
 <section id="section-10">
+      <h2 id="name-network-digital-twin-ontolo">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-network-digital-twin-ontolo" class="section-name selfRef">Network Digital Twin Ontology</a>
+      </h2>
+<p id="section-10-1">The proposed generative AI–enabled Intent-Based Networking (IBN) architecture can be empowered with a Network Digital Twin (NDT) ontology,
+which serves as the semantic backbone that allows the system to represent, reason, and act upon the network’s physical and logical states in a unified way.
+Since the adapters are categorized by networking domain and intent granularity with different quality parameters, the ontology has to be quality-driven,
+meaning that its core entities and relationships are structured around quality indicators such as latency, throughput, reliability, and energy efficiency.
+The ontology relies on a semantic representation so that every network element (node, link, function) is described by its functional attributes
+together with quantifiable quality parameters. This enables intelligent alignment between service requirements and underlying resource capabilities through IBN.
+Within the overall generative AI-enabled IBN model, the ontology provides a multi-layered abstraction that connects service requirements with traffic parameters
+and physical infrastructure, supporting both top-down intent translation and bottom-up feedback from telemetry data. This ontology enhances the adapter fusion and
+orchestration processes by guiding AI models to interpret intents in the context of network quality objectives, select appropriate policy actions, and evaluate
+trade-offs between performance and efficiency. By embedding these semantic and quality-aware relationships, the NDT ontology enables the digital twin
+to operate as a continuously learning system, capable of dynamically optimizing network behavior, validating intents before deployment, and adapting to evolving conditions
+while maintaining compliance with quality and energy-efficiency goals.<a href="#section-10-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="challenges-and-research-directions">
+<section id="section-11">
       <h2 id="name-challenges-and-research-dir">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-challenges-and-research-dir" class="section-name selfRef">Challenges and Research Directions</a>
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-challenges-and-research-dir" class="section-name selfRef">Challenges and Research Directions</a>
       </h2>
 <div id="model-interoperability-in-lora-flow">
-<section id="section-10.1">
+<section id="section-11.1">
         <h3 id="name-model-interoperability-in-l">
-<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-model-interoperability-in-l" class="section-name selfRef">Model Interoperability in LoRA Flow</a>
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-model-interoperability-in-l" class="section-name selfRef">Model Interoperability in LoRA Flow</a>
         </h3>
-<p id="section-10.1-1">Ensuring consistent parameterization and preventing interference when fusing adapters.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<p id="section-11.1-1">Ensuring consistent parameterization and preventing interference when fusing adapters.<a href="#section-11.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ensuring-security-and-robustness-in-specialized-adapters">
-<section id="section-10.2">
+<section id="section-11.2">
         <h3 id="name-ensuring-security-and-robus">
-<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-ensuring-security-and-robus" class="section-name selfRef">Ensuring Security and Robustness in Specialized Adapters</a>
+<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-ensuring-security-and-robus" class="section-name selfRef">Ensuring Security and Robustness in Specialized Adapters</a>
         </h3>
-<p id="section-10.2-1">Preventing malicious adapter injection and ensuring adapters respect security constraints.<a href="#section-10.2-1" class="pilcrow">¶</a></p>
+<p id="section-11.2-1">Preventing malicious adapter injection and ensuring adapters respect security constraints.<a href="#section-11.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="governance-of-lora-repositories">
-<section id="section-10.3">
+<section id="section-11.3">
         <h3 id="name-governance-of-lora-reposito">
-<a href="#section-10.3" class="section-number selfRef">10.3. </a><a href="#name-governance-of-lora-reposito" class="section-name selfRef">Governance of LoRA Repositories</a>
+<a href="#section-11.3" class="section-number selfRef">11.3. </a><a href="#name-governance-of-lora-reposito" class="section-name selfRef">Governance of LoRA Repositories</a>
         </h3>
-<p id="section-10.3-1">Managing trust, versioning, and deprecation of adapters.<a href="#section-10.3-1" class="pilcrow">¶</a></p>
+<p id="section-11.3-1">Managing trust, versioning, and deprecation of adapters.<a href="#section-11.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="towards-autonomous-model-lifecycle-management-in-ibn">
-<section id="section-10.4">
+<section id="section-11.4">
         <h3 id="name-towards-autonomous-model-li">
-<a href="#section-10.4" class="section-number selfRef">10.4. </a><a href="#name-towards-autonomous-model-li" class="section-name selfRef">Towards Autonomous Model Lifecycle Management in IBN</a>
+<a href="#section-11.4" class="section-number selfRef">11.4. </a><a href="#name-towards-autonomous-model-li" class="section-name selfRef">Towards Autonomous Model Lifecycle Management in IBN</a>
         </h3>
-<p id="section-10.4-1">Developing self-optimizing pipelines for adapter generation, validation, and retirement.<a href="#section-10.4-1" class="pilcrow">¶</a></p>
+<p id="section-11.4-1">Developing self-optimizing pipelines for adapter generation, validation, and retirement.<a href="#section-11.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-11">
+<section id="section-12">
       <h2 id="name-security-considerations">
-<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-11-1">TODO<a href="#section-11-1" class="pilcrow">¶</a></p>
+<p id="section-12-1">TODO<a href="#section-12-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-12">
+<section id="section-13">
       <h2 id="name-iana-considerations">
-<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-13" class="section-number selfRef">13. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-12-1">This document has no IANA actions.<a href="#section-12-1" class="pilcrow">¶</a></p>
+<p id="section-13-1">This document has no IANA actions.<a href="#section-13-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
-<section id="section-13">
+<section id="section-14">
       <h2 id="name-references">
-<a href="#section-13" class="section-number selfRef">13. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-14" class="section-number selfRef">14. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
 <div id="sec-normative-references">
-<section id="section-13.1">
+<section id="section-14.1">
         <h3 id="name-normative-references">
-<a href="#section-13.1" class="section-number selfRef">13.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-14.1" class="section-number selfRef">14.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
@@ -1998,9 +2030,9 @@ with standard IBN orchestrators via REST APIs or 3GPP-compatible interfaces.<a h
 </section>
 </div>
 <div id="sec-informative-references">
-<section id="section-13.2">
+<section id="section-14.2">
         <h3 id="name-informative-references">
-<a href="#section-13.2" class="section-number selfRef">13.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-14.2" class="section-number selfRef">14.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
 <dt id="AI-Challenges">[AI-Challenges]</dt>
@@ -2101,6 +2133,28 @@ with standard IBN orchestrators via REST APIs or 3GPP-compatible interfaces.<a h
 <div class="email">
 <span>Email:</span>
 <a href="mailto:emiljan.kolaj@siriustec.it" class="email">emiljan.kolaj@siriustec.it</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Marco Martalo'</span></div>
+<div dir="auto" class="left"><span class="org">University of Cagliari</span></div>
+<div dir="auto" class="left">
+<span class="locality">Cagliari</span> </div>
+<div dir="auto" class="left"><span class="country-name">Italy</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:marco.martalo@unica.it" class="email">marco.martalo@unica.it</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Virginia Pilloni</span></div>
+<div dir="auto" class="left"><span class="org">University of Cagliari</span></div>
+<div dir="auto" class="left">
+<span class="locality">Cagliari</span> </div>
+<div dir="auto" class="left"><span class="country-name">Italy</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:virginia.pilloni@unica.it" class="email">virginia.pilloni@unica.it</a>
 </div>
 </address>
 </section>
