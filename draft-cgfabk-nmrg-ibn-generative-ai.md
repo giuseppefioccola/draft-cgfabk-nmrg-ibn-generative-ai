@@ -4,7 +4,7 @@ abbrev: "ibn-generative-ai"
 category: info
 
 docname: draft-cgfabk-nmrg-ibn-generative-ai-latest
-submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
+submissiontype: IRTF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
 consensus: true
@@ -79,8 +79,10 @@ contributor:
 normative:
 
 informative:
-  AI-Challenges: I-D.irtf-nmrg-ai-challenges
+  IBN: RFC9315
   IBN-UseCases: I-D.irtf-nmrg-ibn-usecases
+  AI-Challenges: I-D.irtf-nmrg-ai-challenges
+  AI-Deploy: I-D.irtf-nmrg-ai-deploy
   LoRA: DOI.10.48550/arXiv.2106.09685
   HF-PEFT:
      target: https://github.com/huggingface/peft
@@ -98,8 +100,7 @@ highly targeted generative models for Intent-Based Networking.
 
 This document describes how transfer learning techniques can be adopted to design generative AI specialized models
 for Intent-Based Networking (IBN). It also describes tools, such as Low-rank Adaptation (LoRA), for achieving
-efficient and scalable transfer learning in data networks for designing targeted generative models for
-Intent-Based Networking (IBN).
+efficient and scalable transfer learning in data networks for designing targeted generative models for IBN.
 
 The objective of this document is define a framework for the rapid adaptation and composition of specialized knowledge,
 addressing the challenges identified in {{AI-Challenges}} and enabling the dynamic, multi-domain use cases of {{IBN-UseCases}}.
@@ -108,7 +109,8 @@ Future work should focus on interoperability, governance, and autonomous managem
 
 ## Overview of IBN
 
-IBN represents a paradigm shift in network management, aiming to bridge the gap between business objectives and network configurations.
+IBN concepts and definitions are described in {{IBN}}. IBN represents a paradigm shift in network management, aiming to bridge the gap
+between business objectives and network configurations.
 Unlike traditional networking, which requires manual, device-level configurations, IBN allows operators to specify high-level intents
 (e.g., "ensure low latency for video traffic"), which the system then automatically translates, enforces, and continuously validates.
 Key references include {{IBN-UseCases}}, which outlines IBN use cases across enterprise, data center, and service provider environments.
@@ -123,7 +125,8 @@ IBN can reduce operational complexity, improve network agility, and significantl
 
 Generative AI, particularly Large Language Models (LLMs), can enhance IBN by automating intent parsing, policy generation, and network troubleshooting.
 LLMs can understand natural language intents, generate low-level configurations, and adapt policies in real-time.
-This aligns with the challenges presented in {{AI-Challenges}}, which stresses the need for models that can dynamically adapt to context and scale efficiently.
+This aligns with the deployment aspects presented in {{AI-Deploy}} and the challenges presented in {{AI-Challenges}}, which stress the need for models
+that can dynamically adapt to context and scale efficiently.
 
 Generative AI can extend its role to include auto-remediation, dynamic configuration adjustments, and the creation of context-aware policies
 based on real-time network conditions. These capabilities are critical in environments with rapidly shifting traffic patterns,
@@ -172,7 +175,7 @@ interpretable, and aligned with organizational objectives in dynamic digital inf
 LLMs like GPT and BERT can process complex, unstructured inputs and generate contextually relevant outputs.
 In IBN, LLMs are used to translate high-level intents into vendor-agnostic policies and device-specific configurations.
 The integration of these models into network management systems is emerging as a critical research area,
-as outlined in {{AI-Challenges}}.
+as outlined in {{AI-Challenges}} and {{AI-Deploy}}.
 
 ## Intent Parsing and Translation via Generative Models
 
@@ -416,8 +419,9 @@ with standard IBN orchestrators via REST APIs or 3GPP-compatible interfaces.
 
 # Network Digital Twin Ontology
 
-The proposed generative AI–enabled Intent-Based Networking (IBN) architecture can be empowered with a Network Digital Twin (NDT) ontology,
-which serves as the semantic backbone that allows the system to represent, reason, and act upon the network’s physical and logical states in a unified way.
+{{AI-Deploy}} explains how Network Digital Twin (NDT) also needs to build distributed AI services. Similarly the proposed generative AI-enabled IBN architecture
+can be empowered with a NDT ontology, which serves as the semantic backbone that allows the system to represent, reason, and act upon the network's
+physical and logical states in a unified way.
 Since the adapters are categorized by networking domain and intent granularity with different quality parameters, the ontology has to be quality-driven,
 meaning that its core entities and relationships are structured around quality indicators such as latency, throughput, reliability, and energy efficiency.
 The ontology relies on a semantic representation so that every network element (node, link, function) is described by its functional attributes
@@ -451,7 +455,10 @@ Developing self-optimizing pipelines for adapter generation, validation, and ret
 
 # Security Considerations
 
-TODO
+This document describes how transfer learning techniques can be adopted to design generative AI specialized models for IBN.
+Therefore, more detailed security considerations will be described in the documents that specify the implementation and deployment
+of the generative AI for IBN solution.
+General security considerations can be found for IBN in {{IBN}} and for AI in {{AI-Challenges}} and {{AI-Deploy}}.
 
 
 # IANA Considerations
