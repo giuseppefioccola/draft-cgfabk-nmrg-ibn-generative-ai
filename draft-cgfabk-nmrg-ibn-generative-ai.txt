@@ -5,7 +5,7 @@
 Network Management                                           P. Cassara'
 Internet-Draft                                                  A. Gotta
 Intended status: Informational                                  CNR-ISTI
-Expires: 19 April 2026                                       G. Fioccola
+Expires: 22 October 2026                                     G. Fioccola
                                                             A. Artigiani
                                                      Huawei Technologies
                                                                R. Burrai
@@ -14,7 +14,7 @@ Expires: 19 April 2026                                       G. Fioccola
                                                              M. Martalo'
                                                               V. Pilloni
                                                   University of Cagliari
-                                                         16 October 2025
+                                                           20 April 2026
 
 
                Generative AI for Intent-Based Networking
@@ -60,21 +60,18 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 April 2026.
+   This Internet-Draft will expire on 22 October 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents (https://trustee.ietf.org/
    license-info) in effect on the date of publication of this document.
    Please review these documents carefully, as they describe your rights
-   and restrictions with respect to this document.  Code Components
-   extracted from this document must include Revised BSD License text as
-   described in Section 4.e of the Trust Legal Provisions and are
-   provided without warranty as described in the Revised BSD License.
+   and restrictions with respect to this document.
 
 Table of Contents
 
@@ -138,7 +135,7 @@ Table of Contents
    Networking (IBN).  It also describes tools, such as Low-rank
    Adaptation (LoRA), for achieving efficient and scalable transfer
    learning in data networks for designing targeted generative models
-   for Intent-Based Networking (IBN).
+   for IBN.
 
    The objective of this document is define a framework for the rapid
    adaptation and composition of specialized knowledge, addressing the
@@ -151,15 +148,15 @@ Table of Contents
 
 1.1.  Overview of IBN
 
-   IBN represents a paradigm shift in network management, aiming to
-   bridge the gap between business objectives and network
-   configurations.  Unlike traditional networking, which requires
-   manual, device-level configurations, IBN allows operators to specify
-   high-level intents (e.g., "ensure low latency for video traffic"),
-   which the system then automatically translates, enforces, and
-   continuously validates.  Key references include [IBN-UseCases], which
-   outlines IBN use cases across enterprise, data center, and service
-   provider environments.
+   IBN concepts and definitions are described in [IBN].  IBN represents
+   a paradigm shift in network management, aiming to bridge the gap
+   between business objectives and network configurations.  Unlike
+   traditional networking, which requires manual, device-level
+   configurations, IBN allows operators to specify high-level intents
+   (e.g., "ensure low latency for video traffic"), which the system then
+   automatically translates, enforces, and continuously validates.  Key
+   references include [IBN-UseCases], which outlines IBN use cases
+   across enterprise, data center, and service provider environments.
 
    IBN fundamentally changes the role of network administrators by
    focusing on desired outcomes instead of manual command-line
@@ -178,9 +175,10 @@ Table of Contents
    IBN by automating intent parsing, policy generation, and network
    troubleshooting.  LLMs can understand natural language intents,
    generate low-level configurations, and adapt policies in real-time.
-   This aligns with the challenges presented in [AI-Challenges], which
-   stresses the need for models that can dynamically adapt to context
-   and scale efficiently.
+   This aligns with the deployment aspects presented in [AI-Deploy] and
+   the challenges presented in [AI-Challenges], which stress the need
+   for models that can dynamically adapt to context and scale
+   efficiently.
 
    Generative AI can extend its role to include auto-remediation,
    dynamic configuration adjustments, and the creation of context-aware
@@ -253,7 +251,7 @@ Table of Contents
    translate high-level intents into vendor-agnostic policies and
    device-specific configurations.  The integration of these models into
    network management systems is emerging as a critical research area,
-   as outlined in [AI-Challenges].
+   as outlined in [AI-Challenges] and [AI-Deploy].
 
 3.2.  Intent Parsing and Translation via Generative Models
 
@@ -551,19 +549,20 @@ Table of Contents
 
 10.  Network Digital Twin Ontology
 
-   The proposed generative AI–enabled Intent-Based Networking (IBN)
-   architecture can be empowered with a Network Digital Twin (NDT)
-   ontology, which serves as the semantic backbone that allows the
-   system to represent, reason, and act upon the network’s physical and
-   logical states in a unified way.  Since the adapters are categorized
-   by networking domain and intent granularity with different quality
-   parameters, the ontology has to be quality-driven, meaning that its
-   core entities and relationships are structured around quality
-   indicators such as latency, throughput, reliability, and energy
-   efficiency.  The ontology relies on a semantic representation so that
-   every network element (node, link, function) is described by its
-   functional attributes together with quantifiable quality parameters.
-   This enables intelligent alignment between service requirements and
+   [AI-Deploy] explains how Network Digital Twin (NDT) also needs to
+   build distributed AI services.  Similarly the proposed generative AI-
+   enabled IBN architecture can be empowered with a NDT ontology, which
+   serves as the semantic backbone that allows the system to represent,
+   reason, and act upon the network's physical and logical states in a
+   unified way.  Since the adapters are categorized by networking domain
+   and intent granularity with different quality parameters, the
+   ontology has to be quality-driven, meaning that its core entities and
+   relationships are structured around quality indicators such as
+   latency, throughput, reliability, and energy efficiency.  The
+   ontology relies on a semantic representation so that every network
+   element (node, link, function) is described by its functional
+   attributes together with quantifiable quality parameters.  This
+   enables intelligent alignment between service requirements and
    underlying resource capabilities through IBN.  Within the overall
    generative AI-enabled IBN model, the ontology provides a multi-
    layered abstraction that connects service requirements with traffic
@@ -602,7 +601,13 @@ Table of Contents
 
 12.  Security Considerations
 
-   TODO
+   This document describes how transfer learning techniques can be
+   adopted to design generative AI specialized models for IBN.
+   Therefore, more detailed security considerations will be described in
+   the documents that specify the implementation and deployment of the
+   generative AI for IBN solution.  General security considerations can
+   be found for IBN in [IBN] and for AI in [AI-Challenges] and
+   [AI-Deploy].
 
 13.  IANA Considerations
 
@@ -631,16 +636,29 @@ Table of Contents
               05, 18 March 2025, <https://datatracker.ietf.org/doc/html/
               draft-irtf-nmrg-ai-challenges-05>.
 
+   [AI-Deploy]
+              Hong, Y., Youn, J., Hong, S., Martinez-Julia, P., and Q.
+              Wu, "Considerations of network/system for AI services",
+              Work in Progress, Internet-Draft, draft-irtf-nmrg-ai-
+              deploy-02, 20 October 2025,
+              <https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-
+              deploy-02>.
+
    [HF-PEFT]  "Hugging Face PEFT", n.d.,
               <https://github.com/huggingface/peft>.
+
+   [IBN]      Clemm, A., Ciavaglia, L., Granville, L. Z., and J.
+              Tantsura, "Intent-Based Networking - Concepts and
+              Definitions", RFC 9315, DOI 10.17487/RFC9315, October
+              2022, <https://www.rfc-editor.org/rfc/rfc9315>.
 
    [IBN-UseCases]
               Yao, K., Chen, D., Jeong, J. P., Wu, Q., Yang, C.,
               Contreras, L. M., and G. Fioccola, "Use Cases and
               Practices for Intent-Based Networking", Work in Progress,
-              Internet-Draft, draft-irtf-nmrg-ibn-usecases-00, 28 March
-              2025, <https://datatracker.ietf.org/doc/html/draft-irtf-
-              nmrg-ibn-usecases-00>.
+              Internet-Draft, draft-irtf-nmrg-ibn-usecases-03, 15 March
+              2026, <https://datatracker.ietf.org/doc/html/draft-irtf-
+              nmrg-ibn-usecases-03>.
 
    [LoRA]     Hu, E., Shen, Y., Wallis, P., Allen-Zhu, Z., Li, Y., Wang,
               S., Wang, L., and W. Chen, "LoRA: Low-Rank Adaptation of

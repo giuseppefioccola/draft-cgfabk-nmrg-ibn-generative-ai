@@ -17,25 +17,24 @@
        This document describes how to specialize AI models in order to offer a scalable, efficient path to creating
 highly targeted generative models for Intent-Based Networking. 
     " name="description">
-<meta content="xml2rfc 3.30.2" name="generator">
+<meta content="xml2rfc 3.33.0" name="generator">
 <meta content="next generation" name="keyword">
 <meta content="unicorn" name="keyword">
 <meta content="sparkling distributed ledger" name="keyword">
 <meta content="draft-cgfabk-nmrg-ibn-generative-ai-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.2
-    Python 3.12.11
+  xml2rfc 3.33.0
+    Python 3.12.13
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
-    intervaltree 3.1.0
+    intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 5.3.1
-    platformdirs 4.4.0
+    lxml 6.0.2
+    platformdirs 4.9.6
     pycountry 24.6.1
-    PyYAML 6.0.2
+    PyYAML 6.0.3
     requests 2.32.5
-    setuptools 80.9.0
-    wcwidth 0.2.14
+    wcwidth 0.6.0
 -->
 <link href="draft-cgfabk-nmrg-ibn-generative-ai.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -176,7 +175,7 @@ highly targeted generative models for Intent-Based Networking.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: 'Oxygen Mono';
@@ -184,7 +183,8 @@ highly targeted generative models for Intent-Based Networking.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 }
 
 @font-face {
@@ -576,6 +576,7 @@ aside, blockquote {
 }
 blockquote {
   margin: 1em 0;
+  border-left: 2px var(--pilcrow-strong) solid;
 }
 cite {
   display: block;
@@ -646,7 +647,7 @@ a.pilcrow {
   }
 }
 @media not print {
-  :hover > a.pilcrow {
+  :hover > a.pilcrow, a.pilcrow:focus {
     opacity: 1;
   }
   a.pilcrow[href]:hover {
@@ -1054,11 +1055,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ibn-generative-ai</td>
-<td class="right">October 2025</td>
+<td class="right">April 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Cassara', et al.</td>
-<td class="center">Expires 19 April 2026</td>
+<td class="center">Expires 22 October 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-cgfabk-nmrg-ibn-generative-ai-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-10-16" class="published">16 October 2025</time>
+<time datetime="2026-04-20" class="published">20 April 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-04-19">19 April 2026</time></dd>
+<dd class="expires"><time datetime="2026-10-22">22 October 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1155,7 +1156,7 @@ highly targeted generative models for Intent-Based Networking.<a href="#section-
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1164,7 +1165,7 @@ highly targeted generative models for Intent-Based Networking.<a href="#section-
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2025 IETF Trust and the persons identified as the
+            Copyright (c) 2026 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1172,10 +1173,7 @@ highly targeted generative models for Intent-Based Networking.<a href="#section-
             (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
             publication of this document. Please review these documents
             carefully, as they describe your rights and restrictions with
-            respect to this document. Code Components extracted from this
-            document must include Revised BSD License text as described in
-            Section 4.e of the Trust Legal Provisions and are provided without
-            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+            respect to this document.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="toc">
@@ -1368,8 +1366,7 @@ highly targeted generative models for Intent-Based Networking.<a href="#section-
       </h2>
 <p id="section-1-1">This document describes how transfer learning techniques can be adopted to design generative AI specialized models
 for Intent-Based Networking (IBN). It also describes tools, such as Low-rank Adaptation (LoRA), for achieving
-efficient and scalable transfer learning in data networks for designing targeted generative models for
-Intent-Based Networking (IBN).<a href="#section-1-1" class="pilcrow">¶</a></p>
+efficient and scalable transfer learning in data networks for designing targeted generative models for IBN.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">The objective of this document is define a framework for the rapid adaptation and composition of specialized knowledge,
 addressing the challenges identified in <span>[<a href="#AI-Challenges" class="cite xref">AI-Challenges</a>]</span> and enabling the dynamic, multi-domain use cases of <span>[<a href="#IBN-UseCases" class="cite xref">IBN-UseCases</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">Future work should focus on interoperability, governance, and autonomous management to fully realize the potential of this approach.<a href="#section-1-3" class="pilcrow">¶</a></p>
@@ -1378,7 +1375,8 @@ addressing the challenges identified in <span>[<a href="#AI-Challenges" class="c
         <h3 id="name-overview-of-ibn">
 <a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-overview-of-ibn" class="section-name selfRef">Overview of IBN</a>
         </h3>
-<p id="section-1.1-1">IBN represents a paradigm shift in network management, aiming to bridge the gap between business objectives and network configurations.
+<p id="section-1.1-1">IBN concepts and definitions are described in <span>[<a href="#IBN" class="cite xref">IBN</a>]</span>. IBN represents a paradigm shift in network management, aiming to bridge the gap
+between business objectives and network configurations.
 Unlike traditional networking, which requires manual, device-level configurations, IBN allows operators to specify high-level intents
 (e.g., "ensure low latency for video traffic"), which the system then automatically translates, enforces, and continuously validates.
 Key references include <span>[<a href="#IBN-UseCases" class="cite xref">IBN-UseCases</a>]</span>, which outlines IBN use cases across enterprise, data center, and service provider environments.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
@@ -1396,7 +1394,8 @@ IBN can reduce operational complexity, improve network agility, and significantl
         </h3>
 <p id="section-1.2-1">Generative AI, particularly Large Language Models (LLMs), can enhance IBN by automating intent parsing, policy generation, and network troubleshooting.
 LLMs can understand natural language intents, generate low-level configurations, and adapt policies in real-time.
-This aligns with the challenges presented in <span>[<a href="#AI-Challenges" class="cite xref">AI-Challenges</a>]</span>, which stresses the need for models that can dynamically adapt to context and scale efficiently.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
+This aligns with the deployment aspects presented in <span>[<a href="#AI-Deploy" class="cite xref">AI-Deploy</a>]</span> and the challenges presented in <span>[<a href="#AI-Challenges" class="cite xref">AI-Challenges</a>]</span>, which stress the need for models
+that can dynamically adapt to context and scale efficiently.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
 <p id="section-1.2-2">Generative AI can extend its role to include auto-remediation, dynamic configuration adjustments, and the creation of context-aware policies
 based on real-time network conditions. These capabilities are critical in environments with rapidly shifting traffic patterns,
 such as 5G networks, multi-cloud environments, and large-scale SDN deployments.
@@ -1465,7 +1464,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-3.1-1">LLMs like GPT and BERT can process complex, unstructured inputs and generate contextually relevant outputs.
 In IBN, LLMs are used to translate high-level intents into vendor-agnostic policies and device-specific configurations.
 The integration of these models into network management systems is emerging as a critical research area,
-as outlined in <span>[<a href="#AI-Challenges" class="cite xref">AI-Challenges</a>]</span>.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+as outlined in <span>[<a href="#AI-Challenges" class="cite xref">AI-Challenges</a>]</span> and <span>[<a href="#AI-Deploy" class="cite xref">AI-Deploy</a>]</span>.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="intent-parsing-and-translation-via-generative-models">
@@ -1938,8 +1937,9 @@ with standard IBN orchestrators via REST APIs or 3GPP-compatible interfaces.<a h
       <h2 id="name-network-digital-twin-ontolo">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-network-digital-twin-ontolo" class="section-name selfRef">Network Digital Twin Ontology</a>
       </h2>
-<p id="section-10-1">The proposed generative AI–enabled Intent-Based Networking (IBN) architecture can be empowered with a Network Digital Twin (NDT) ontology,
-which serves as the semantic backbone that allows the system to represent, reason, and act upon the network’s physical and logical states in a unified way.
+<p id="section-10-1"><span>[<a href="#AI-Deploy" class="cite xref">AI-Deploy</a>]</span> explains how Network Digital Twin (NDT) also needs to build distributed AI services. Similarly the proposed generative AI-enabled IBN architecture
+can be empowered with a NDT ontology, which serves as the semantic backbone that allows the system to represent, reason, and act upon the network's
+physical and logical states in a unified way.
 Since the adapters are categorized by networking domain and intent granularity with different quality parameters, the ontology has to be quality-driven,
 meaning that its core entities and relationships are structured around quality indicators such as latency, throughput, reliability, and energy efficiency.
 The ontology relies on a semantic representation so that every network element (node, link, function) is described by its functional attributes
@@ -1996,7 +1996,10 @@ while maintaining compliance with quality and energy-efficiency goals.<a href="#
       <h2 id="name-security-considerations">
 <a href="#section-12" class="section-number selfRef">12. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-12-1">TODO<a href="#section-12-1" class="pilcrow">¶</a></p>
+<p id="section-12-1">This document describes how transfer learning techniques can be adopted to design generative AI specialized models for IBN.
+Therefore, more detailed security considerations will be described in the documents that specify the implementation and deployment
+of the generative AI for IBN solution.
+General security considerations can be found for IBN in <span>[<a href="#IBN" class="cite xref">IBN</a>]</span> and for AI in <span>[<a href="#AI-Challenges" class="cite xref">AI-Challenges</a>]</span> and <span>[<a href="#AI-Deploy" class="cite xref">AI-Deploy</a>]</span>.<a href="#section-12-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -2039,13 +2042,21 @@ while maintaining compliance with quality and energy-efficiency goals.<a href="#
         <dd>
 <span class="refAuthor">François, J.</span>, <span class="refAuthor">Clemm, A.</span>, <span class="refAuthor">Papadimitriou, D.</span>, <span class="refAuthor">Fernandes, S.</span>, and <span class="refAuthor">S. Schneider</span>, <span class="refTitle">"Research Challenges in Coupling Artificial Intelligence and Network Management"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-ai-challenges-05</span>, <time datetime="2025-03-18" class="refDate">18 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-challenges-05">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-challenges-05</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="AI-Deploy">[AI-Deploy]</dt>
+        <dd>
+<span class="refAuthor">Hong, Y.</span>, <span class="refAuthor">Youn, J.</span>, <span class="refAuthor">Hong, S.</span>, <span class="refAuthor">Martinez-Julia, P.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Considerations of network/system for AI services"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-ai-deploy-02</span>, <time datetime="2025-10-20" class="refDate">20 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-deploy-02">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-deploy-02</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="HF-PEFT">[HF-PEFT]</dt>
         <dd>
 <span class="refTitle">"Hugging Face PEFT"</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/huggingface/peft">https://github.com/huggingface/peft</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="IBN">[IBN]</dt>
+        <dd>
+<span class="refAuthor">Clemm, A.</span>, <span class="refAuthor">Ciavaglia, L.</span>, <span class="refAuthor">Granville, L. Z.</span>, and <span class="refAuthor">J. Tantsura</span>, <span class="refTitle">"Intent-Based Networking - Concepts and Definitions"</span>, <span class="seriesInfo">RFC 9315</span>, <span class="seriesInfo">DOI 10.17487/RFC9315</span>, <time datetime="2022-10" class="refDate">October 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9315">https://www.rfc-editor.org/rfc/rfc9315</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="IBN-UseCases">[IBN-UseCases]</dt>
         <dd>
-<span class="refAuthor">Yao, K.</span>, <span class="refAuthor">Chen, D.</span>, <span class="refAuthor">Jeong, J. P.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Yang, C.</span>, <span class="refAuthor">Contreras, L. M.</span>, and <span class="refAuthor">G. Fioccola</span>, <span class="refTitle">"Use Cases and Practices for Intent-Based Networking"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-ibn-usecases-00</span>, <time datetime="2025-03-28" class="refDate">28 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ibn-usecases-00">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ibn-usecases-00</a>&gt;</span>. </dd>
+<span class="refAuthor">Yao, K.</span>, <span class="refAuthor">Chen, D.</span>, <span class="refAuthor">Jeong, J. P.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Yang, C.</span>, <span class="refAuthor">Contreras, L. M.</span>, and <span class="refAuthor">G. Fioccola</span>, <span class="refTitle">"Use Cases and Practices for Intent-Based Networking"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-ibn-usecases-03</span>, <time datetime="2026-03-15" class="refDate">15 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ibn-usecases-03">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ibn-usecases-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="LoRA">[LoRA]</dt>
       <dd>
