@@ -12,9 +12,9 @@ v: 3
 area: "IRTF"
 workgroup: "Network Management"
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - IBN
+ - Generative AI
+ - Agentic AI
 venue:
   group: "Network Management"
   type: "Research Group"
@@ -107,6 +107,12 @@ addressing the challenges identified in {{AI-Challenges}} and enabling the dynam
 
 Future work should focus on interoperability, governance, and autonomous management to fully realize the potential of this approach.
 
+## Conventions and Definitions
+
+{::boilerplate bcp14-tagged}
+
+# Requirements
+
 ## Overview of IBN
 
 IBN concepts and definitions are described in {{IBN}}. IBN represents a paradigm shift in network management, aiming to bridge the gap
@@ -131,21 +137,25 @@ that can dynamically adapt to context and scale efficiently.
 Generative AI can extend its role to include auto-remediation, dynamic configuration adjustments, and the creation of context-aware policies
 based on real-time network conditions. These capabilities are critical in environments with rapidly shifting traffic patterns,
 such as 5G networks, multi-cloud environments, and large-scale SDN deployments.
-By leveraging fine-tuned generative models, IBN systems can become self-configuring, self-optimizing, and self-healing,
+By leveraging specializing generative models, IBN systems can become self-configuring, self-optimizing, and self-healing,
 moving closer to the vision of fully autonomous networks.
 
-## Motivation for AI Model Specialization
+## AI Model Specialization
 
 Generic LLMs often lack the precision required for domain-specific applications like IBN. Specialization is critical to
 improve accuracy, reduce inference time, and minimize resource consumption.
-LoRA provides an efficient method to fine-tune large models using minimal computational resources, enabling targeted model specialization
-for distinct network domains or intent categories.
+Specialization methods provide an efficient method for tuning large models using minimal computational resources,
+enabling targeted model specialization for distinct network domains or intent categories.
 
 Specialization ensures that the AI system correctly interprets and applies complex domain-specific policies, such as those for
 Quality of Service (QoS), security compliance, and multi-vendor interoperability.
 Without specialization, generic models risk generating suboptimal or even invalid configurations.
-LoRA-based specialization enables the rapid creation and deployment of these focused models, supporting agile, intent-driven network operations
+Model specialization enables the rapid creation and deployment of these focused models, supporting agile, intent-driven network operations
 while maintaining the scalability and cost-effectiveness required for wide deployment across heterogeneous infrastructures.
+
+# Methods for AI Model Specialization
+
+Transfer learning and Adaptation are the methods for AI Model Specialization.
 
 ## Transfer Learning
 
@@ -163,24 +173,36 @@ accurate, and scalable method for intent interpretation and execution.
 This fusion of LLMs with transfer learning not only propels the automation of network operations but also ensures that the AI systems remain adaptive,
 interpretable, and aligned with organizational objectives in dynamic digital infrastructures.
 
-# Conventions and Definitions
+## Fine-Tuning Adaptation
 
-{::boilerplate bcp14-tagged}
+IBN requires high domain accuracy. For example, a generic model may misinterpret a telecommunications-specific intent.
+Specializing models using LoRA ensures they are finely tuned to the nuances of networking language, policies, and protocols.
+LoRA fine-tunes only small, low-rank matrices, leaving the rest of the model unchanged.
+For instance, adapting a generic LLM to focus on BGP policy generation could be achieved
+by training a small adapter on BGP-related datasets, reducing the compute requirements compared to full fine-tuning.
+
+Unlike traditional fine-tuning, which adjusts the entire model, or pruning, which removes less important weights,
+LoRA introduces new parameters without overwriting existing knowledge. This allows multiple specialized LoRA adapters
+to coexist and be swapped or combined as needed.
+
+Empirical studies show that LoRA adapters can reduce memory consumption by over 70% compared to full fine-tuning.
+For example, fine-tuning a model for IPv6 routing policy generation using LoRA reduces the required GPU VRAM
+from 16 GB to approximately 5 GB while maintaining performance.
 
 
-# Background Concepts
+# Generative AI and LLMs
 
-## Generative AI and LLMs in Networking
+## IBN
 
 LLMs like GPT and BERT can process complex, unstructured inputs and generate contextually relevant outputs.
 In IBN, LLMs are used to translate high-level intents into vendor-agnostic policies and device-specific configurations.
 The integration of these models into network management systems is emerging as a critical research area,
 as outlined in {{AI-Challenges}} and {{AI-Deploy}}.
 
-## Intent Parsing and Translation via Generative Models
+## Intent Parsing and Translation
 
-An example flow in {{fig1}} illustrates how an intent like "minimize latency for video traffic" is parsed
-by a generative model and translated into specific QoS policies.
+An example flow in {{fig1}} illustrates how an intent like "minimize latency for video traffic" is processed
+by an AI Agent and, then using a generative model, the AI Agent translates it into specific QoS policies.
 
 ~~~
 +---------------------+
@@ -190,9 +212,19 @@ by a generative model and translated into specific QoS policies.
            |
            v
 +---------------------+
+|      AI Agent       |
+|   (Intent Parser)   |
++---------------------+
+           |
+           v
++---------------------+
 |  Generative Model   |
-| (Intent Parser +    |
-|  Policy Generator)  |
++---------------------+
+           |
+           v
++---------------------+
+|      AI Agent       |
+| (Policy Generator)  |
 +---------------------+
            |
            v
@@ -202,56 +234,46 @@ by a generative model and translated into specific QoS policies.
 ~~~
 {: #fig1 title="Example flow of intent parsing and translation"}
 
-## Fundamentals of LoRA
+## Model Specialization
 
+There are several possibilities for specializing models.
 LoRA {{LoRA}} introduces trainable low-rank matrices into the layers of pre-trained models, allowing fine-tuning
 with significantly fewer parameters. This approach reduces the storage and computational footprint,
 enabling deployment of specialized models even on resource-constrained systems.
+The table below reports a summary of the Transfer learning methods.
+
+|     Mechanism     | Target Labels needed |        Compute cost       |  Target accuracy  |          Primary Use case           |
+|-------------------|----------------------|---------------------------|-------------------|-------------------------------------|
+| Full fine tuning  | High (100s-1000s)    |  High (Full GPU re-train) | Highest (95%+)    | Major domain shift, abundant labels |
+| LoRA/Adapters     | Low (10s-100s)       | Low (1-5% parameters)     | High (90-95%+)    | Rapid adaptation, edge deployment   |
+| Domain Adaptation | Zero (unsupervised)  | Medium (Adversarial SSL)  | Moderate (80-88%) | Zero-label target domains           |
+| Meta-learning     | Few-Shot (0-10)      | High (Pre-training stage) | High (88-93%)     | Ultra-fast online recalibration     |
+{: #tab1 title="Transfer learning methods"}
 
 
-# Specializing Generative AI with LoRA
+# Architectural layer for Specialized Models
 
-## The Need for Model Specialization in IBN
+## Repository Architecture
 
-IBN requires high domain accuracy. For example, a generic model may misinterpret a telecommunications-specific intent.
-Specializing models using LoRA ensures they are finely tuned to the nuances of networking language, policies, and protocols.
-
-## LoRA for Lightweight Fine-Tuning
-
-LoRA fine-tunes only small, low-rank matrices, leaving the rest of the model unchanged.
-For instance, adapting a generic LLM to focus on BGP policy generation could be achieved
-by training a small adapter on BGP-related datasets, reducing the compute requirements compared to full fine-tuning.
-
-## Comparison with Traditional Fine-Tuning and Pruning
-
-Unlike traditional fine-tuning, which adjusts the entire model, or pruning, which removes less important weights,
-LoRA introduces new parameters without overwriting existing knowledge. This allows multiple specialized LoRA adapters
-to coexist and be swapped or combined as needed.
-
-## Efficiency and Performance Gains in Network Models
-
-Empirical studies show that LoRA adapters can reduce memory consumption by over 70% compared to full fine-tuning.
-For example, fine-tuning a model for IPv6 routing policy generation using LoRA reduces the required GPU VRAM
-from 16 GB to approximately 5 GB while maintaining performance.
-
-
-# Hub: Repository of Specialized Models
-
-## Concept and Architecture of a Hub
-
-A Hub is a structured repository where specialized adapters are stored, indexed, and shared.
+A structured repository where specialized adapters are stored, indexed, and shared
+is also referred to as Hub.
 It enables efficient reuse and modularity. The architecture typically includes:
 
 - Adapter storage
+- Transfer learning methods
+- AI Agents
+
+In addition, there are:
+
 - Metadata index (domain, use case, version)
 - Dependency tracking for composite models
 
-## Organizing and Indexing Adapters for Networking Tasks
+## Organizing and Indexing Adapters
 
 Adapters can be categorized by networking domain (e.g., security, QoS, routing) and intent granularity (e.g., traffic type, SLA constraint).
 Cross-indexing improves discoverability and composability.
 
-## Examples of IBN-Targeted LoRA Adapters
+Examples of IBN-Targeted Adapters are:
 
 - Adapter A: IPv6 Segment Routing configuration
 - Adapter B: QoS policy for video prioritization
@@ -260,14 +282,15 @@ Cross-indexing improves discoverability and composability.
 ## Benefits of Modular and Shareable Specializations
 
 Operators can quickly compose or replace adapters based on current intents, improving agility and reducing the cost of specialization.
-LoRA Hub supports collaboration and community-driven model evolution.
+For example, LoRA Hub supports collaboration and community-driven model evolution.
 
 
-# Flow: Model Fusion and Evolution
+# Model Fusion and Evolution
 
-## Concept of Flow for Adapter Composition
+## Adapter Composition
 
-Flow refers to the systematic combination of multiple adapters to form a new, composite model capable of handling complex, multi-domain intents.
+The systematic combination of multiple adapters to form a new, composite model capable of handling complex, multi-domain intents
+is also referred to as Flow.
 
 ## Fusion of Multiple Adapters to Generate New Models
 
@@ -278,31 +301,32 @@ like "guarantee low latency for critical applications within zero-trust boundari
      +-------------------------+
      |        Base LLM         |
      +-------------------------+
-       |        |    ...   \
-       |        |           \
-+---------+ +----------+   +----------+
-| Adapter | | Adapter  |   | Adapter  |
-|   QoS   | | Security |...|     j    |
-+---------+ +----------+   +----------+
-        \        |            /
-         \       |    ...    /
-         +-------------------+
-         |     Composite     |
-         |    Specialized    |
-         |       Model       |
-         +-------------------+
+                  |
+     +-------------------------+
+     |       AI Agent          |
+     |  (Intent Translation)   |
+     +-------------------------+
+                  |
+     +------------+------------+
+     |  Adapters  |  Transfer  |
+     |            |  Learning  |
+     +------------+------------+
+                  |
+     +-------------------------+
+     |       AI Agent          |
+     |  (Model Propagation)    |
+     +-------------------------+
 ~~~
 {: #fig2 title="Fusion of multiple adapters to generate new models"}
 
 ## Workflow for Dynamic Specialization Based on Intent
 
 1. Parse user intent
-2. Query LoRA Hub for relevant adapters
+2. Query for relevant adapters
 3. Dynamically load and fuse adapters
 4. Generate configuration
 
-## Case Study: Multi-Domain Network Management
-
+A case study can be the Multi-Domain Network Management.
 A service provider managing both MPLS and SDN domains can fuse LoRA adapters for each to generate cross-domain policies
 automatically in response to high-level intents.
 
@@ -320,7 +344,7 @@ automatically in response to high-level intents.
 In-network telemetry provides real-time feedback on policy effectiveness, enabling further fine-tuning or adapter updates,
 aligning with the adaptive model requirements discussed in {{AI-Challenges}}.
 
-## Benchmarking Specialized Models: Accuracy, Latency, and Resource Consumption
+## Benchmarking Specialized Models
 
 Key benchmarks include:
 
@@ -329,31 +353,18 @@ Key benchmarks include:
 - Domain-specific intent accuracy (> 90%)
 
 
-# Practical Frameworks and Tools
-
-## LoRA Fine-Tuning Libraries
-
-- PEFT (Parameter-Efficient Fine-Tuning) {{HF-PEFT}}
-- Hugging Face LoRA integration
-
-## LoRA Hub Implementations
-
-- Model repositories using Hugging Face Hub structure
-- Metadata indexing via JSON-LD for semantic search
-
-## Toolchains for LoRA Flow and Adapter Fusion
-
-- Adapter composition APIs
-- Intent parsing frontends
-- Deployment via Kubernetes with sidecar loading of adapters
-
-
-# Logical Architecture for Model Management
+# Agentic AI for Network Operations and Management
 
 ## Overview
 
-Drawing inspiration from the Analytics Logical Function (AnLF) and Model Training Logical Function (MTLF) architectures defined in 3GPP NWDAF,
-this section proposes a logical architecture to manage, store, and orchestrate AI models for Intent-Based Networking.
+An AI agent uses one or more models to plan, make decisions, use tools, and execute workflows.
+A user makes a query that is translated into complex technical goals through an AI model.
+AI agents gather context from the live network data and other information before reasoning
+to determine the best solutions. The workflow in {{fig3}} can be done by an AI Agent.
+
+## Logical Architecture Diagram
+
+This section proposes a logical architecture to manage, store, and orchestrate AI models for Intent-Based Networking.
 The architecture introduces the following logical components:
 
 - Model Repository Function (MRF): Stores adapters and base models.
@@ -361,8 +372,6 @@ The architecture introduces the following logical components:
 - Model Fusion and Composition Function (MFCF): Manages flow processes to create composite models.
 - Intent Processing and Adapter Orchestration Function (IPOF): Dynamically selects, composes, and deploys adapters based on parsed intents.
 - Telemetry Feedback Function (TFF): Continuously monitors performance and triggers model re-specialization when required.
-
-## Logical Architecture Diagram
 
 ~~~
 +----------------------------+
@@ -397,7 +406,7 @@ The architecture introduces the following logical components:
 | Telemetry Feedback Function (TFF) |
 +-----------------------------------+
 ~~~
-{: #fig3 title="Logical Architecture Diagram"}
+{: #fig3 title="Logical Architecture Diagram for an AI Agent"}
 
 ## Detailed Workflow
 
@@ -430,13 +439,31 @@ Within the overall generative AI-enabled IBN model, the ontology provides a mult
 and physical infrastructure, supporting both top-down intent translation and bottom-up feedback from telemetry data. This ontology enhances the adapter fusion and
 orchestration processes by guiding AI models to interpret intents in the context of network quality objectives, select appropriate policy actions, and evaluate
 trade-offs between performance and efficiency. By embedding these semantic and quality-aware relationships, the NDT ontology enables the digital twin
-to operate as a continuously learning system, capable of dynamically optimizing network behavior, validating intents before deployment, and adapting to evolving conditions
-while maintaining compliance with quality and energy-efficiency goals.
+to operate as a continuously learning system, capable of dynamically optimizing network behavior, validating intents before deployment, and adapting to evolving conditions while maintaining compliance with quality and energy-efficiency goals.
+
+
+# Frameworks and Tools
+
+## Fine-Tuning Libraries
+
+- PEFT (Parameter-Efficient Fine-Tuning) {{HF-PEFT}}
+- Hugging Face LoRA integration
+
+## Repository Implementations
+
+- Model repositories using Hugging Face Hub structure
+- Metadata indexing via JSON-LD for semantic search
+
+## Toolchains for Adapter Fusion
+
+- Adapter composition APIs
+- Intent parsing frontends
+- Deployment via Kubernetes with sidecar loading of adapters
 
 
 # Challenges and Research Directions
 
-## Model Interoperability in LoRA Flow
+## Model Interoperability
 
 Ensuring consistent parameterization and preventing interference when fusing adapters.
 
@@ -444,7 +471,7 @@ Ensuring consistent parameterization and preventing interference when fusing ada
 
 Preventing malicious adapter injection and ensuring adapters respect security constraints.
 
-## Governance of LoRA Repositories
+## Governance of Repositories
 
 Managing trust, versioning, and deprecation of adapters.
 
