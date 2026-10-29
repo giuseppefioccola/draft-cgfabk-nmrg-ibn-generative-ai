@@ -17,24 +17,25 @@
        This document describes how to specialize AI models in order to offer a scalable, efficient path to creating
 highly targeted generative models for Intent-Based Networking. 
     " name="description">
-<meta content="xml2rfc 3.33.0" name="generator">
-<meta content="next generation" name="keyword">
-<meta content="unicorn" name="keyword">
-<meta content="sparkling distributed ledger" name="keyword">
+<meta content="xml2rfc 3.34.1" name="generator">
+<meta content="IBN" name="keyword">
+<meta content="Generative AI" name="keyword">
+<meta content="Agentic AI" name="keyword">
 <meta content="draft-cgfabk-nmrg-ibn-generative-ai-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.33.0
-    Python 3.12.13
-    ConfigArgParse 1.7
+  xml2rfc 3.34.1
+    Python 3.14.8
+    ConfigArgParse 1.8.0
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 6.0.2
-    platformdirs 4.9.6
+    lxml 6.1.1
+    natsort 8.4.0
+    platformdirs 4.13.4
     pycountry 24.6.1
     PyYAML 6.0.3
-    requests 2.32.5
-    wcwidth 0.6.0
+    requests 2.33.1
+    wcwidth 0.9.2
 -->
 <link href="draft-cgfabk-nmrg-ibn-generative-ai.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -70,7 +71,6 @@ highly targeted generative models for Intent-Based Networking.
   src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: italic;
@@ -119,7 +119,6 @@ highly targeted generative models for Intent-Based Networking.
   src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: normal;
@@ -184,7 +183,6 @@ highly targeted generative models for Intent-Based Networking.
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
 }
 
 @font-face {
@@ -301,16 +299,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size-adjust: 0.5;
   color: var(--title-color);
 }
-h1#title {
-  font-size: 32px;
-  line-height: 40px;
-  clear: both;
-}
-h1#title, h1#rfcnum {
-  margin: 1.5em 0 0.2em;
-}
-h1#rfcnum + h1#title {
-  margin: 0.2em 0;
+h1 {
+  &#title {
+    font-size: 32px;
+    line-height: 40px;
+    clear: both;
+    margin: 1.5em 0 0.2em;
+  }
+  &#rfcnum {
+    margin: 1.5em 0 0.2em;
+    & + h1#title {
+      margin: 0.2em 0;
+    }
+  }
 }
 
 h1, h2, h3 {
@@ -330,10 +331,10 @@ h4, h5, h6 {
 #abstract+p {
   font-size: 18px;
   line-height: 24px;
-}
-#abstract+p code, #abstract+p samp, #abstract+p tt {
-  font-size: 16px;
-  line-height: 0;
+  & code, & samp, & tt {
+    font-size: 16px;
+    line-height: 0;
+  }
 }
 
 p {
@@ -344,59 +345,59 @@ p {
 div {
   margin: 0;
 }
-.alignRight.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignRight.art-text pre {
-  padding: 0;
-  width: auto;
-}
 .alignRight {
   margin: 1em 0;
-}
-.alignRight > *:first-child {
-  border: none;
-  margin: 0;
-  float: right;
-  clear: both;
-}
-.alignRight > *:nth-child(2) {
-  clear: both;
-  display: block;
-  border: none;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    margin: 0;
+    float: right;
+    clear: both;
+  }
+  & > *:nth-child(2) {
+    clear: both;
+    display: block;
+    border: none;
+  }
 }
 svg {
   display: block;
-}
-/* font-family isn't space-separated, but =~ will have to do */
-svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
-  font-family: var(--font-mono);
-}
-.alignCenter.art-text {
-  background-color: var(--highlight-color);
-  border: 1px solid var(--line-color);
-  border-radius: 3px;
-  padding: 0.5em 1em 0;
-  margin-bottom: 0.5em;
-}
-.alignCenter.art-text pre {
-  padding: 0;
-  width: auto;
+  /* font-family isn't space-separated, but =~ will have to do */
+  &[font-family~="monospace" i], & [font-family~="monospace" i] {
+    font-family: var(--font-mono);
+  }
 }
 .alignCenter {
   margin: 1em 0;
-}
-.alignCenter > *:first-child {
-  border: none;
-  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
-     support flexbox yet.
-  */
-  display: table;
-  margin: 0 auto;
+  &.art-text {
+    background-color: var(--highlight-color);
+    border: 1px solid var(--line-color);
+    border-radius: 3px;
+    padding: 0.5em 1em 0;
+    margin-bottom: 0.5em;
+    & pre {
+      padding: 0;
+      width: auto;
+    }
+  }
+  & > *:first-child {
+    border: none;
+    /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+       support flexbox yet.
+    */
+    display: table;
+    margin: 0 auto;
+  }
 }
 
 /* lists */
@@ -434,26 +435,25 @@ dl {
     --indent: 5ch;
     & > dt {
       min-width: calc(var(--indent) - 2ch);
+      float: none;
     }
-  }
-  &.olPercent > dt {
-    float: none;
   }
 
   dl > dd > & {
     margin-top: 0.5em;
     margin-bottom: 0;
   }
-}
-dl:not(.dlNewline) > dt {
-  float: left;
-  margin-right: 2ch;
-  min-width: 8ch;
-}
-dl > dd {
-  margin-bottom: .8em;
-  margin-left: var(--indent) !important; /* stupid element overrides */
-  min-height: 2ex;
+
+  &:not(.dlNewline) > dt {
+    float: left;
+    margin-right: 2ch;
+    min-width: 8ch;
+  }
+  & > dd {
+    margin-bottom: .8em;
+    margin-left: var(--indent) !important; /* stupid element overrides */
+    min-height: 2ex;
+  }
 }
 :is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0;
@@ -469,20 +469,22 @@ dl > dd {
 }
 
 /* links */
-a, a[href].selfRef:hover {
+a {
   text-decoration: none;
+  &[href] {
+    color: var(--link-color);
+    &:hover { text-decoration: underline; }
+    &.selfRef {
+      color: var(--text-color);
+      &:hover {
+        text-decoration: none;
+        background-color: var(--highlight-color);
+      }
+    }
+  }
 }
-a[href] {
-  color: var(--link-color);
-}
-a[href].selfRef, .iref + a[href].internal {
+.iref + a[href].internal {
   color: var(--text-color);
-}
-a[href]:hover {
-  text-decoration: underline;
-}
-a[href].selfRef:hover {
-  background-color: var(--highlight-color);
 }
 a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
   white-space: nowrap;
@@ -518,9 +520,9 @@ img {
 figure {
   margin: 0.5em 0;
   padding: 0;
-}
-figure blockquote {
-  margin: 0.8em 0.4em 0.4em;
+  & blockquote {
+    margin: 0.8em 0.4em 0.4em;
+  }
 }
 figcaption, caption {
   font-style: italic;
@@ -530,17 +532,19 @@ figcaption, caption {
 }
 @media screen {
   /* Auto-collapse boilerplate. */
-  :is(#status-of-memo, #copyright) p {
-    margin: -2px 0;
-    max-height: 0;
-    transition: max-height 2s ease, margin 0.5s ease 0.5s;
-    overflow: hidden;
-  }
-  :is(#status-of-memo, #copyright):hover p,
-  :is(#status-of-memo, #copyright) h2:target ~ p {
-    margin: 0.5em 0;
-    max-height: 500px;
-    overflow: auto;
+  :is(#status-of-memo, #copyright) {
+    & p {
+      margin: -2px 0;
+      max-height: 0;
+      transition: max-height 2s ease, margin 0.5s ease 0.5s;
+      overflow: hidden;
+    }
+    &:hover p,
+    & h2:target ~ p {
+      margin: 0.5em 0;
+      max-height: 500px;
+      overflow: auto;
+    }
   }
   pre, svg {
     display: inline-block;
@@ -590,25 +594,17 @@ table {
   max-width: 100%;
   margin: 0 0 1em;
   border-collapse: collapse;
-}
-table.right {
-  margin-left: auto;
-}
-table.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-table.left {
-  margin-right: auto;
-}
-table .text-left {
-  text-align: left;
-}
-table .text-center {
-  text-align: center;
-}
-table .text-right {
-  text-align: right;
+  &.right { margin-left: auto; }
+  &.center { margin-left: auto; margin-right: auto; }
+  &.left { margin-right: auto; }
+  & .text-left { text-align: left; }
+  & .text-center { text-align: center; }
+  & .text-right { text-align: right; }
+  & caption {
+    margin: 0;
+    padding: 3px 0 3px 1em;
+  }
+  & p { margin: 0; }
 }
 
 thead, tbody {
@@ -628,13 +624,6 @@ th {
 :is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
 }
-table caption {
-  margin: 0;
-  padding: 3px 0 3px 1em;
-}
-table p {
-  margin: 0;
-}
 
 /* pilcrow */
 a.pilcrow {
@@ -645,18 +634,16 @@ a.pilcrow {
     color: var(--pilcrow-weak);
     &:hover { text-decoration: none; }
   }
-}
-@media not print {
-  :hover > a.pilcrow, a.pilcrow:focus {
-    opacity: 1;
+  @media not print {
+    :hover > &, &:focus {
+      opacity: 1;
+    }
+    &[href]:hover {
+      color: var(--pilcrow-strong);
+      background-color: transparent;
+    }
   }
-  a.pilcrow[href]:hover {
-    color: var(--pilcrow-strong);
-    background-color: transparent;
-  }
-}
-@media print {
-  a.pilcrow {
+  @media print {
     display: none;
   }
 }
@@ -715,9 +702,9 @@ sub, sup {
   font-size: 0.9em;
   font-style: italic;
   margin-top: 2em;
-}
-.docInfo .prepared {
-  float: right;
+  & .prepared {
+    float: right;
+  }
 }
 
 /* table of contents */
@@ -807,23 +794,27 @@ hr.addr {
   max-width: calc(100% - 16px);
 }
 @media (min-width: 500px) {
-  #authors-addresses > section {
-    column-count: 2;
-    column-gap: 20px;
-  }
-  #authors-addresses > section > h2 {
-    column-span: all;
-  }
-  /* hack for break-inside: avoid-column */
-  #authors-addresses address {
-    display: inline-block;
-    break-inside: avoid-column;
+  #authors-addresses {
+    & > section {
+      column-count: 2;
+      column-gap: 20px;
+    }
+    & > section > h2 {
+      column-span: all;
+    }
+    /* hack for break-inside: avoid-column */
+    & address {
+      display: inline-block;
+      break-inside: avoid-column;
+    }
   }
 }
 
 /* Comments */
-.rfcEditorRemove p:first-of-type {
-  font-style: italic;
+.rfcEditorRemove {
+  & p:first-of-type {
+    font-style: italic;
+  }
 }
 .cref {
   background-color: rgba(249, 232, 105, 0.3);
@@ -834,19 +825,21 @@ hr.addr {
 }
 
 @media screen {
-  #toc nav {
-    font-family: var(--font-title);
-    font-weight: 360;
-    & > ul { margin-bottom: 2em; }
-    & ul {
-      margin: 0 0 0 4px;
-      & :is(p, li) {
-        margin: 2px 0;
+  #toc {
+    & nav {
+      font-family: var(--font-title);
+      font-weight: 360;
+      & > ul { margin-bottom: 2em; }
+      & ul {
+        margin: 0 0 0 4px;
+        & :is(p, li) {
+          margin: 2px 0;
+        }
       }
     }
-  }
-  #toc a.toplink {
-    float: right;
+    & a.toplink {
+      float: right;
+    }
   }
 }
 @media not screen {
@@ -867,54 +860,54 @@ hr.addr {
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 2px 0 2px 6px;
-    padding-right: 1em;
-    font-size: 18px;
-    line-height: 24px;
-    min-width: 190px;
-    text-align: right;
-    background-color: #444;
-    color: white;
-    cursor: pointer;
-    &::before { /* css hamburger */
-      float: right;
-      position: relative;
-      width: 1em;
-      height: 1px;
-      left: -164px;
-      margin: 8px 0 0 0;
-      background: white none repeat scroll 0 0;
-      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
-      content: "";
+    & h2 {
+      margin: 0;
+      padding: 2px 0 2px 6px;
+      padding-right: 1em;
+      font-size: 18px;
+      line-height: 24px;
+      min-width: 190px;
+      text-align: right;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      &::before { /* css hamburger */
+        float: right;
+        position: relative;
+        width: 1em;
+        height: 1px;
+        left: -164px;
+        margin: 8px 0 0 0;
+        background: white none repeat scroll 0 0;
+        box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+        content: "";
+      }
     }
-  }
-  #toc nav {
-    display: none;
-    background-color: var(--background-color);
-    padding: 0.5em 1em 1em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    height: calc(100vh - 48px);
-    border-left: 1px solid #ddd;
-  }
-  #toc.active {
-    opacity: 1;
-    & nav { display: block; }
-  }
-  /* Make the collapsed ToC header render white on gray also when it's a link */
-  #toc h2 a,
-  #toc h2 a:is(:link, :focus, :hover),
-  #toc a.toplink,
-  #toc a.toplink:hover {
-    color: white;
-    background-color: #444;
-    text-decoration: none;
-  }
-  #toc a.toplink {
-    margin: 2px 0.5em 0;
+    & nav {
+      display: none;
+      background-color: var(--background-color);
+      padding: 0.5em 1em 1em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      height: calc(100vh - 48px);
+      border-left: 1px solid #ddd;
+    }
+    &.active {
+      opacity: 1;
+      & nav { display: block; }
+    }
+    /* Make the collapsed ToC header render white on gray also when it's a link */
+    & h2 a,
+    & h2 a:is(:link, :focus, :hover),
+    & a.toplink,
+    & a.toplink:hover {
+      color: white;
+      background-color: #444;
+      text-decoration: none;
+    }
+    & a.toplink {
+      margin: 2px 0.5em 0;
+    }
   }
 }
 
@@ -933,26 +926,26 @@ hr.addr {
     margin: 0;
     padding: 0;
     z-index: 1;
-  }
-  #toc h2 {
-    margin: 0;
-    padding: 0.25em 1em 1em 0;
-  }
-  #toc nav {
-    display: block;
-    height: calc(90vh - 84px);
-    bottom: 0;
-    padding: 0.5em 0 2em;
-    overflow: auto;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
+    & h2 {
+      margin: 0;
+      padding: 0.25em 1em 1em 0;
+    }
+    & nav {
+      display: block;
+      height: calc(90vh - 84px);
+      bottom: 0;
+      padding: 0.5em 0 2em;
+      overflow: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+    }
+    & a.toplink {
+      margin: 8px 0.5em 0;
+    }
   }
   img { /* future proofing */
     max-width: 100%;
     height: auto;
-  }
-  #toc a.toplink {
-    margin: 8px 0.5em 0;
   }
 }
 
@@ -968,12 +961,13 @@ hr.addr {
   #n-copyright-notice {
     border-bottom: none;
   }
-  #toc, #n-introduction {
-    page-break-before: always;
-  }
   #toc {
+    page-break-before: always;
     border-top: none;
     padding-top: 0;
+  }
+  #n-introduction {
+    page-break-before: always;
   }
   figure, pre, .vcard {
     page-break-inside: avoid;
@@ -1035,17 +1029,19 @@ hr.addr {
 }
 
 /* SVG Trick: a prefix match works because only black and white are allowed */
-svg :is([stroke="black"], [stroke^="#000"]) {
-  stroke: var(--text-color);
-}
-svg :is([stroke="white"], [stroke^="#fff"]) {
-  stroke: var(--background-color);
-}
-svg :is([fill="black"], [fill^="#000"], :not([fill])) {
-  fill: var(--text-color);
-}
-svg :is([fill="white"], [fill^="#fff"]) {
-  fill: var(--background-color);
+svg {
+  & :is([stroke="black"], [stroke^="#000"]) {
+    stroke: var(--text-color);
+  }
+  & :is([stroke="white"], [stroke^="#fff"]) {
+    stroke: var(--background-color);
+  }
+  & :is([fill="black"], [fill^="#000"], :not([fill])) {
+    fill: var(--text-color);
+  }
+  & :is([fill="white"], [fill^="#fff"]) {
+    fill: var(--background-color);
+  }
 }
 </style>
 
@@ -1055,11 +1051,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">ibn-generative-ai</td>
-<td class="right">April 2026</td>
+<td class="right">October 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Cassara', et al.</td>
-<td class="center">Expires 22 October 2026</td>
+<td class="center">Expires 2 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1068,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-cgfabk-nmrg-ibn-generative-ai-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-04-20" class="published">20 April 2026</time>
+<time datetime="2026-10-29" class="published">29 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-10-22">22 October 2026</time></dd>
+<dd class="expires"><time datetime="2027-05-02">2 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1156,7 +1152,7 @@ highly targeted generative models for Intent-Based Networking.<a href="#section-
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 22 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 2 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1183,87 +1179,77 @@ highly targeted generative models for Intent-Based Networking.<a href="#section-
         </h2>
 <nav class="toc"><ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
-            <p id="section-toc.1-1.1.1"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.1">
-                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-overview-of-ibn" class="internal xref">Overview of IBN</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.2">
-                <p id="section-toc.1-1.1.2.2.1" class="keepWithNext"><a href="#section-1.2" class="auto internal xref">1.2</a>.  <a href="#name-role-of-generative-ai-in-ib" class="internal xref">Role of Generative AI in IBN</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.3">
-                <p id="section-toc.1-1.1.2.3.1" class="keepWithNext"><a href="#section-1.3" class="auto internal xref">1.3</a>.  <a href="#name-motivation-for-ai-model-spe" class="internal xref">Motivation for AI Model Specialization</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1.2.4">
-                <p id="section-toc.1-1.1.2.4.1"><a href="#section-1.4" class="auto internal xref">1.4</a>.  <a href="#name-transfer-learning" class="internal xref">Transfer Learning</a></p>
+                <p id="section-toc.1-1.1.2.1.1" class="keepWithNext"><a href="#section-1.1" class="auto internal xref">1.1</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-requirements" class="internal xref">Requirements</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
+                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-overview-of-ibn" class="internal xref">Overview of IBN</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
+                <p id="section-toc.1-1.2.2.2.1"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-role-of-generative-ai-in-ib" class="internal xref">Role of Generative AI in IBN</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
+                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-ai-model-specialization" class="internal xref">AI Model Specialization</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-background-concepts" class="internal xref">Background Concepts</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-methods-for-ai-model-specia" class="internal xref">Methods for AI Model Specialization</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-generative-ai-and-llms-in-n" class="internal xref">Generative AI and LLMs in Networking</a></p>
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-transfer-learning" class="internal xref">Transfer Learning</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-intent-parsing-and-translat" class="internal xref">Intent Parsing and Translation via Generative Models</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
-                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-fundamentals-of-lora" class="internal xref">Fundamentals of LoRA</a></p>
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-fine-tuning-adaptation" class="internal xref">Fine-Tuning Adaptation</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-specializing-generative-ai-" class="internal xref">Specializing Generative AI with LoRA</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-generative-ai-and-llms" class="internal xref">Generative AI and LLMs</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-the-need-for-model-speciali" class="internal xref">The Need for Model Specialization in IBN</a></p>
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-ibn" class="internal xref">IBN</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
-                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-lora-for-lightweight-fine-t" class="internal xref">LoRA for Lightweight Fine-Tuning</a></p>
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-intent-parsing-and-translat" class="internal xref">Intent Parsing and Translation</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
-                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-comparison-with-traditional" class="internal xref">Comparison with Traditional Fine-Tuning and Pruning</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
-                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-efficiency-and-performance-" class="internal xref">Efficiency and Performance Gains in Network Models</a></p>
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-model-specialization" class="internal xref">Model Specialization</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-hub-repository-of-specializ" class="internal xref">Hub: Repository of Specialized Models</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-architectural-layer-for-spe" class="internal xref">Architectural layer for Specialized Models</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-concept-and-architecture-of" class="internal xref">Concept and Architecture of a Hub</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-repository-architecture" class="internal xref">Repository Architecture</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-organizing-and-indexing-ada" class="internal xref">Organizing and Indexing Adapters for Networking Tasks</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-organizing-and-indexing-ada" class="internal xref">Organizing and Indexing Adapters</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
-                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-examples-of-ibn-targeted-lo" class="internal xref">Examples of IBN-Targeted LoRA Adapters</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
-                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-benefits-of-modular-and-sha" class="internal xref">Benefits of Modular and Shareable Specializations</a></p>
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-benefits-of-modular-and-sha" class="internal xref">Benefits of Modular and Shareable Specializations</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-flow-model-fusion-and-evolu" class="internal xref">Flow: Model Fusion and Evolution</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-model-fusion-and-evolution" class="internal xref">Model Fusion and Evolution</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-concept-of-flow-for-adapter" class="internal xref">Concept of Flow for Adapter Composition</a></p>
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-adapter-composition" class="internal xref">Adapter Composition</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
                 <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-fusion-of-multiple-adapters" class="internal xref">Fusion of Multiple Adapters to Generate New Models</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
                 <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-workflow-for-dynamic-specia" class="internal xref">Workflow for Dynamic Specialization Based on Intent</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4">
-                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-case-study-multi-domain-net" class="internal xref">Case Study: Multi-Domain Network Management</a></p>
 </li>
             </ul>
 </li>
@@ -1277,55 +1263,55 @@ highly targeted generative models for Intent-Based Networking.<a href="#section-
                 <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-feedback-loops-and-continuo" class="internal xref">Feedback Loops and Continuous Adaptation</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
-                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-benchmarking-specialized-mo" class="internal xref">Benchmarking Specialized Models: Accuracy, Latency, and Resource Consumption</a></p>
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-benchmarking-specialized-mo" class="internal xref">Benchmarking Specialized Models</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-practical-frameworks-and-to" class="internal xref">Practical Frameworks and Tools</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-agentic-ai-for-network-oper" class="internal xref">Agentic AI for Network Operations and Management</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
-                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-lora-fine-tuning-libraries" class="internal xref">LoRA Fine-Tuning Libraries</a></p>
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-overview" class="internal xref">Overview</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
-                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-lora-hub-implementations" class="internal xref">LoRA Hub Implementations</a></p>
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-logical-architecture-diagra" class="internal xref">Logical Architecture Diagram</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
-                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-toolchains-for-lora-flow-an" class="internal xref">Toolchains for LoRA Flow and Adapter Fusion</a></p>
+                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-detailed-workflow" class="internal xref">Detailed Workflow</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
+                <p id="section-toc.1-1.8.2.4.1"><a href="#section-8.4" class="auto internal xref">8.4</a>.  <a href="#name-models-adaptation-and-orche" class="internal xref">Models Adaptation, and Orchestration</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-logical-architecture-for-mo" class="internal xref">Logical Architecture for Model Management</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-overview" class="internal xref">Overview</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-logical-architecture-diagra" class="internal xref">Logical Architecture Diagram</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
-                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-detailed-workflow" class="internal xref">Detailed Workflow</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
-                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-models-adaptation-and-orche" class="internal xref">Models Adaptation, and Orchestration</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-network-digital-twin-ontolo" class="internal xref">Network Digital Twin Ontology</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-network-digital-twin-ontolo" class="internal xref">Network Digital Twin Ontology</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-frameworks-and-tools" class="internal xref">Frameworks and Tools</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-fine-tuning-libraries" class="internal xref">Fine-Tuning Libraries</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-repository-implementations" class="internal xref">Repository Implementations</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.3">
+                <p id="section-toc.1-1.10.2.3.1"><a href="#section-10.3" class="auto internal xref">10.3</a>.  <a href="#name-toolchains-for-adapter-fusi" class="internal xref">Toolchains for Adapter Fusion</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-challenges-and-research-dir" class="internal xref">Challenges and Research Directions</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
-                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-model-interoperability-in-l" class="internal xref">Model Interoperability in LoRA Flow</a></p>
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-model-interoperability" class="internal xref">Model Interoperability</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
                 <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="auto internal xref">11.2</a>.  <a href="#name-ensuring-security-and-robus" class="internal xref">Ensuring Security and Robustness in Specialized Adapters</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.3">
-                <p id="section-toc.1-1.11.2.3.1"><a href="#section-11.3" class="auto internal xref">11.3</a>.  <a href="#name-governance-of-lora-reposito" class="internal xref">Governance of LoRA Repositories</a></p>
+                <p id="section-toc.1-1.11.2.3.1"><a href="#section-11.3" class="auto internal xref">11.3</a>.  <a href="#name-governance-of-repositories" class="internal xref">Governance of Repositories</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.4">
                 <p id="section-toc.1-1.11.2.4.1"><a href="#section-11.4" class="auto internal xref">11.4</a>.  <a href="#name-towards-autonomous-model-li" class="internal xref">Towards Autonomous Model Lifecycle Management in IBN</a></p>
@@ -1370,113 +1356,146 @@ efficient and scalable transfer learning in data networks for designing targeted
 <p id="section-1-2">The objective of this document is define a framework for the rapid adaptation and composition of specialized knowledge,
 addressing the challenges identified in <span>[<a href="#AI-Challenges" class="cite xref">AI-Challenges</a>]</span> and enabling the dynamic, multi-domain use cases of <span>[<a href="#IBN-UseCases" class="cite xref">IBN-UseCases</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">Future work should focus on interoperability, governance, and autonomous management to fully realize the potential of this approach.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<div id="overview-of-ibn">
+<div id="conventions-and-definitions">
 <section id="section-1.1">
-        <h3 id="name-overview-of-ibn">
-<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-overview-of-ibn" class="section-name selfRef">Overview of IBN</a>
+        <h3 id="name-conventions-and-definitions">
+<a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
         </h3>
-<p id="section-1.1-1">IBN concepts and definitions are described in <span>[<a href="#IBN" class="cite xref">IBN</a>]</span>. IBN represents a paradigm shift in network management, aiming to bridge the gap
+<p id="section-1.1-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
+described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
+appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="requirements">
+<section id="section-2">
+      <h2 id="name-requirements">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-requirements" class="section-name selfRef">Requirements</a>
+      </h2>
+<div id="overview-of-ibn">
+<section id="section-2.1">
+        <h3 id="name-overview-of-ibn">
+<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-overview-of-ibn" class="section-name selfRef">Overview of IBN</a>
+        </h3>
+<p id="section-2.1-1">IBN concepts and definitions are described in <span>[<a href="#IBN" class="cite xref">IBN</a>]</span>. IBN represents a paradigm shift in network management, aiming to bridge the gap
 between business objectives and network configurations.
 Unlike traditional networking, which requires manual, device-level configurations, IBN allows operators to specify high-level intents
 (e.g., "ensure low latency for video traffic"), which the system then automatically translates, enforces, and continuously validates.
-Key references include <span>[<a href="#IBN-UseCases" class="cite xref">IBN-UseCases</a>]</span>, which outlines IBN use cases across enterprise, data center, and service provider environments.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
-<p id="section-1.1-2">IBN fundamentally changes the role of network administrators by focusing on desired outcomes instead of manual command-line configurations.
+Key references include <span>[<a href="#IBN-UseCases" class="cite xref">IBN-UseCases</a>]</span>, which outlines IBN use cases across enterprise, data center, and service provider environments.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.1-2">IBN fundamentally changes the role of network administrators by focusing on desired outcomes instead of manual command-line configurations.
 The system must be capable of not only translating intents into actionable policies but also of continuously validating whether those intents are met.
 This requires advanced mechanisms for policy enforcement, telemetry collection, and feedback loops that ensure alignment between
 high-level business goals and actual network performance.
-IBN can reduce operational complexity, improve network agility, and significantly lower the time required to deploy new services.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
+IBN can reduce operational complexity, improve network agility, and significantly lower the time required to deploy new services.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="role-of-generative-ai-in-ibn">
-<section id="section-1.2">
+<section id="section-2.2">
         <h3 id="name-role-of-generative-ai-in-ib">
-<a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-role-of-generative-ai-in-ib" class="section-name selfRef">Role of Generative AI in IBN</a>
+<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-role-of-generative-ai-in-ib" class="section-name selfRef">Role of Generative AI in IBN</a>
         </h3>
-<p id="section-1.2-1">Generative AI, particularly Large Language Models (LLMs), can enhance IBN by automating intent parsing, policy generation, and network troubleshooting.
+<p id="section-2.2-1">Generative AI, particularly Large Language Models (LLMs), can enhance IBN by automating intent parsing, policy generation, and network troubleshooting.
 LLMs can understand natural language intents, generate low-level configurations, and adapt policies in real-time.
 This aligns with the deployment aspects presented in <span>[<a href="#AI-Deploy" class="cite xref">AI-Deploy</a>]</span> and the challenges presented in <span>[<a href="#AI-Challenges" class="cite xref">AI-Challenges</a>]</span>, which stress the need for models
-that can dynamically adapt to context and scale efficiently.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
-<p id="section-1.2-2">Generative AI can extend its role to include auto-remediation, dynamic configuration adjustments, and the creation of context-aware policies
+that can dynamically adapt to context and scale efficiently.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-2">Generative AI can extend its role to include auto-remediation, dynamic configuration adjustments, and the creation of context-aware policies
 based on real-time network conditions. These capabilities are critical in environments with rapidly shifting traffic patterns,
 such as 5G networks, multi-cloud environments, and large-scale SDN deployments.
-By leveraging fine-tuned generative models, IBN systems can become self-configuring, self-optimizing, and self-healing,
-moving closer to the vision of fully autonomous networks.<a href="#section-1.2-2" class="pilcrow">¶</a></p>
+By leveraging specializing generative models, IBN systems can become self-configuring, self-optimizing, and self-healing,
+moving closer to the vision of fully autonomous networks.<a href="#section-2.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="motivation-for-ai-model-specialization">
-<section id="section-1.3">
-        <h3 id="name-motivation-for-ai-model-spe">
-<a href="#section-1.3" class="section-number selfRef">1.3. </a><a href="#name-motivation-for-ai-model-spe" class="section-name selfRef">Motivation for AI Model Specialization</a>
+<div id="ai-model-specialization">
+<section id="section-2.3">
+        <h3 id="name-ai-model-specialization">
+<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-ai-model-specialization" class="section-name selfRef">AI Model Specialization</a>
         </h3>
-<p id="section-1.3-1">Generic LLMs often lack the precision required for domain-specific applications like IBN. Specialization is critical to
+<p id="section-2.3-1">Generic LLMs often lack the precision required for domain-specific applications like IBN. Specialization is critical to
 improve accuracy, reduce inference time, and minimize resource consumption.
-LoRA provides an efficient method to fine-tune large models using minimal computational resources, enabling targeted model specialization
-for distinct network domains or intent categories.<a href="#section-1.3-1" class="pilcrow">¶</a></p>
-<p id="section-1.3-2">Specialization ensures that the AI system correctly interprets and applies complex domain-specific policies, such as those for
+Specialization methods provide an efficient method for tuning large models using minimal computational resources,
+enabling targeted model specialization for distinct network domains or intent categories.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-2">Specialization ensures that the AI system correctly interprets and applies complex domain-specific policies, such as those for
 Quality of Service (QoS), security compliance, and multi-vendor interoperability.
 Without specialization, generic models risk generating suboptimal or even invalid configurations.
-LoRA-based specialization enables the rapid creation and deployment of these focused models, supporting agile, intent-driven network operations
-while maintaining the scalability and cost-effectiveness required for wide deployment across heterogeneous infrastructures.<a href="#section-1.3-2" class="pilcrow">¶</a></p>
+Model specialization enables the rapid creation and deployment of these focused models, supporting agile, intent-driven network operations
+while maintaining the scalability and cost-effectiveness required for wide deployment across heterogeneous infrastructures.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
+</section>
+</div>
+<div id="methods-for-ai-model-specialization">
+<section id="section-3">
+      <h2 id="name-methods-for-ai-model-specia">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-methods-for-ai-model-specia" class="section-name selfRef">Methods for AI Model Specialization</a>
+      </h2>
+<p id="section-3-1">Transfer learning and Adaptation are the methods for AI Model Specialization.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="transfer-learning">
-<section id="section-1.4">
+<section id="section-3.1">
         <h3 id="name-transfer-learning">
-<a href="#section-1.4" class="section-number selfRef">1.4. </a><a href="#name-transfer-learning" class="section-name selfRef">Transfer Learning</a>
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-transfer-learning" class="section-name selfRef">Transfer Learning</a>
         </h3>
-<p id="section-1.4-1">Transfer learning enables pretrained models to adapt to specific tasks with significantly less data and computational resources.
+<p id="section-3.1-1">Transfer learning enables pretrained models to adapt to specific tasks with significantly less data and computational resources.
 In the context of IBN, this approach offers a dual advantage: enhancing the efficiency of model training and improving the reliability of
 intent recognition and execution. Indeed, it avoids the need for building models from scratch, which is not only resource-intensive
 but also prone to overfitting due to limited labeled network-specific data. By fine-tuning models on domain-specific datasets, developers
 can quickly create robust models that interpret network intents with high accuracy. Furthermore, it facilitates cross-domain knowledge integration,
 allowing the model to generalize better across various networking environments and topologies.
 Additionally, continual learning mechanisms can be integrated into the LLM-based IBN framework to refine performance over time,
-incorporating feedback loops that learn from real-world interactions and user corrections.<a href="#section-1.4-1" class="pilcrow">¶</a></p>
-<p id="section-1.4-2">In conclusion, transfer learning significantly boosts the viability of LLM-based solutions in IBN by offering a cost-effective,
+incorporating feedback loops that learn from real-world interactions and user corrections.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">In conclusion, transfer learning significantly boosts the viability of LLM-based solutions in IBN by offering a cost-effective,
 accurate, and scalable method for intent interpretation and execution.
 This fusion of LLMs with transfer learning not only propels the automation of network operations but also ensures that the AI systems remain adaptive,
-interpretable, and aligned with organizational objectives in dynamic digital infrastructures.<a href="#section-1.4-2" class="pilcrow">¶</a></p>
+interpretable, and aligned with organizational objectives in dynamic digital infrastructures.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-</section>
-</div>
-<div id="conventions-and-definitions">
-<section id="section-2">
-      <h2 id="name-conventions-and-definitions">
-<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
-      </h2>
-<p id="section-2-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
-"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
-described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
-appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="background-concepts">
-<section id="section-3">
-      <h2 id="name-background-concepts">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-background-concepts" class="section-name selfRef">Background Concepts</a>
-      </h2>
-<div id="generative-ai-and-llms-in-networking">
-<section id="section-3.1">
-        <h3 id="name-generative-ai-and-llms-in-n">
-<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-generative-ai-and-llms-in-n" class="section-name selfRef">Generative AI and LLMs in Networking</a>
+<div id="fine-tuning-adaptation">
+<section id="section-3.2">
+        <h3 id="name-fine-tuning-adaptation">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-fine-tuning-adaptation" class="section-name selfRef">Fine-Tuning Adaptation</a>
         </h3>
-<p id="section-3.1-1">LLMs like GPT and BERT can process complex, unstructured inputs and generate contextually relevant outputs.
+<p id="section-3.2-1">IBN requires high domain accuracy. For example, a generic model may misinterpret a telecommunications-specific intent.
+Specializing models using LoRA ensures they are finely tuned to the nuances of networking language, policies, and protocols.
+LoRA fine-tunes only small, low-rank matrices, leaving the rest of the model unchanged.
+For instance, adapting a generic LLM to focus on BGP policy generation could be achieved
+by training a small adapter on BGP-related datasets, reducing the compute requirements compared to full fine-tuning.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">Unlike traditional fine-tuning, which adjusts the entire model, or pruning, which removes less important weights,
+LoRA introduces new parameters without overwriting existing knowledge. This allows multiple specialized LoRA adapters
+to coexist and be swapped or combined as needed.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2-3">Empirical studies show that LoRA adapters can reduce memory consumption by over 70% compared to full fine-tuning.
+For example, fine-tuning a model for IPv6 routing policy generation using LoRA reduces the required GPU VRAM
+from 16 GB to approximately 5 GB while maintaining performance.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="generative-ai-and-llms">
+<section id="section-4">
+      <h2 id="name-generative-ai-and-llms">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-generative-ai-and-llms" class="section-name selfRef">Generative AI and LLMs</a>
+      </h2>
+<div id="ibn">
+<section id="section-4.1">
+        <h3 id="name-ibn">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-ibn" class="section-name selfRef">IBN</a>
+        </h3>
+<p id="section-4.1-1">LLMs like GPT and BERT can process complex, unstructured inputs and generate contextually relevant outputs.
 In IBN, LLMs are used to translate high-level intents into vendor-agnostic policies and device-specific configurations.
 The integration of these models into network management systems is emerging as a critical research area,
-as outlined in <span>[<a href="#AI-Challenges" class="cite xref">AI-Challenges</a>]</span> and <span>[<a href="#AI-Deploy" class="cite xref">AI-Deploy</a>]</span>.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+as outlined in <span>[<a href="#AI-Challenges" class="cite xref">AI-Challenges</a>]</span> and <span>[<a href="#AI-Deploy" class="cite xref">AI-Deploy</a>]</span>.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="intent-parsing-and-translation-via-generative-models">
-<section id="section-3.2">
+<div id="intent-parsing-and-translation">
+<section id="section-4.2">
         <h3 id="name-intent-parsing-and-translat">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-intent-parsing-and-translat" class="section-name selfRef">Intent Parsing and Translation via Generative Models</a>
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-intent-parsing-and-translat" class="section-name selfRef">Intent Parsing and Translation</a>
         </h3>
-<p id="section-3.2-1">An example flow in <a href="#fig1" class="auto internal xref">Figure 1</a> illustrates how an intent like "minimize latency for video traffic" is parsed
-by a generative model and translated into specific QoS policies.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-1">An example flow in <a href="#fig1" class="auto internal xref">Figure 1</a> illustrates how an intent like "minimize latency for video traffic" is processed
+by an AI Agent and, then using a generative model, the AI Agent translates it into specific QoS policies.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <span id="name-example-flow-of-intent-pars"></span><div id="fig1">
 <figure id="figure-1">
-          <div class="alignLeft art-text artwork" id="section-3.2-2.1">
+          <div class="alignLeft art-text artwork" id="section-4.2-2.1">
 <pre>
 +---------------------+
 |  User High-Level    |
@@ -1485,9 +1504,19 @@ by a generative model and translated into specific QoS policies.<a href="#sectio
            |
            v
 +---------------------+
+|      AI Agent       |
+|   (Intent Parser)   |
++---------------------+
+           |
+           v
++---------------------+
 |  Generative Model   |
-| (Intent Parser +    |
-|  Policy Generator)  |
++---------------------+
+           |
+           v
++---------------------+
+|      AI Agent       |
+| (Policy Generator)  |
 +---------------------+
            |
            v
@@ -1502,138 +1531,146 @@ by a generative model and translated into specific QoS policies.<a href="#sectio
 </div>
 </section>
 </div>
-<div id="fundamentals-of-lora">
-<section id="section-3.3">
-        <h3 id="name-fundamentals-of-lora">
-<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-fundamentals-of-lora" class="section-name selfRef">Fundamentals of LoRA</a>
-        </h3>
-<p id="section-3.3-1">LoRA <span>[<a href="#LoRA" class="cite xref">LoRA</a>]</span> introduces trainable low-rank matrices into the layers of pre-trained models, allowing fine-tuning
-with significantly fewer parameters. This approach reduces the storage and computational footprint,
-enabling deployment of specialized models even on resource-constrained systems.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-</section>
-</div>
-<div id="specializing-generative-ai-with-lora">
-<section id="section-4">
-      <h2 id="name-specializing-generative-ai-">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-specializing-generative-ai-" class="section-name selfRef">Specializing Generative AI with LoRA</a>
-      </h2>
-<div id="the-need-for-model-specialization-in-ibn">
-<section id="section-4.1">
-        <h3 id="name-the-need-for-model-speciali">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-the-need-for-model-speciali" class="section-name selfRef">The Need for Model Specialization in IBN</a>
-        </h3>
-<p id="section-4.1-1">IBN requires high domain accuracy. For example, a generic model may misinterpret a telecommunications-specific intent.
-Specializing models using LoRA ensures they are finely tuned to the nuances of networking language, policies, and protocols.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="lora-for-lightweight-fine-tuning">
-<section id="section-4.2">
-        <h3 id="name-lora-for-lightweight-fine-t">
-<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-lora-for-lightweight-fine-t" class="section-name selfRef">LoRA for Lightweight Fine-Tuning</a>
-        </h3>
-<p id="section-4.2-1">LoRA fine-tunes only small, low-rank matrices, leaving the rest of the model unchanged.
-For instance, adapting a generic LLM to focus on BGP policy generation could be achieved
-by training a small adapter on BGP-related datasets, reducing the compute requirements compared to full fine-tuning.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="comparison-with-traditional-fine-tuning-and-pruning">
+<div id="model-specialization">
 <section id="section-4.3">
-        <h3 id="name-comparison-with-traditional">
-<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-comparison-with-traditional" class="section-name selfRef">Comparison with Traditional Fine-Tuning and Pruning</a>
+        <h3 id="name-model-specialization">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-model-specialization" class="section-name selfRef">Model Specialization</a>
         </h3>
-<p id="section-4.3-1">Unlike traditional fine-tuning, which adjusts the entire model, or pruning, which removes less important weights,
-LoRA introduces new parameters without overwriting existing knowledge. This allows multiple specialized LoRA adapters
-to coexist and be swapped or combined as needed.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-1">There are several possibilities for specializing models.
+LoRA <span>[<a href="#LoRA" class="cite xref">LoRA</a>]</span> introduces trainable low-rank matrices into the layers of pre-trained models, allowing fine-tuning
+with significantly fewer parameters. This approach reduces the storage and computational footprint,
+enabling deployment of specialized models even on resource-constrained systems.
+The table below reports a summary of the Transfer learning methods.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<span id="name-transfer-learning-methods"></span><div id="tab1">
+<table class="center" id="table-1">
+          <caption>
+<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-transfer-learning-methods" class="selfRef">Transfer learning methods</a>
+          </caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Mechanism</th>
+              <th class="text-left" rowspan="1" colspan="1">Target Labels needed</th>
+              <th class="text-left" rowspan="1" colspan="1">Compute cost</th>
+              <th class="text-left" rowspan="1" colspan="1">Target accuracy</th>
+              <th class="text-left" rowspan="1" colspan="1">Primary Use case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Full fine tuning</td>
+              <td class="text-left" rowspan="1" colspan="1">High (100s-1000s)</td>
+              <td class="text-left" rowspan="1" colspan="1">High (Full GPU re-train)</td>
+              <td class="text-left" rowspan="1" colspan="1">Highest (95%+)</td>
+              <td class="text-left" rowspan="1" colspan="1">Major domain shift, abundant labels</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">LoRA/Adapters</td>
+              <td class="text-left" rowspan="1" colspan="1">Low (10s-100s)</td>
+              <td class="text-left" rowspan="1" colspan="1">Low (1-5% parameters)</td>
+              <td class="text-left" rowspan="1" colspan="1">High (90-95%+)</td>
+              <td class="text-left" rowspan="1" colspan="1">Rapid adaptation, edge deployment</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Domain Adaptation</td>
+              <td class="text-left" rowspan="1" colspan="1">Zero (unsupervised)</td>
+              <td class="text-left" rowspan="1" colspan="1">Medium (Adversarial SSL)</td>
+              <td class="text-left" rowspan="1" colspan="1">Moderate (80-88%)</td>
+              <td class="text-left" rowspan="1" colspan="1">Zero-label target domains</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Meta-learning</td>
+              <td class="text-left" rowspan="1" colspan="1">Few-Shot (0-10)</td>
+              <td class="text-left" rowspan="1" colspan="1">High (Pre-training stage)</td>
+              <td class="text-left" rowspan="1" colspan="1">High (88-93%)</td>
+              <td class="text-left" rowspan="1" colspan="1">Ultra-fast online recalibration</td>
+            </tr>
+          </tbody>
+        </table>
+</div>
 </section>
 </div>
-<div id="efficiency-and-performance-gains-in-network-models">
-<section id="section-4.4">
-        <h3 id="name-efficiency-and-performance-">
-<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-efficiency-and-performance-" class="section-name selfRef">Efficiency and Performance Gains in Network Models</a>
-        </h3>
-<p id="section-4.4-1">Empirical studies show that LoRA adapters can reduce memory consumption by over 70% compared to full fine-tuning.
-For example, fine-tuning a model for IPv6 routing policy generation using LoRA reduces the required GPU VRAM
-from 16 GB to approximately 5 GB while maintaining performance.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-</section>
-</div>
-<div id="hub-repository-of-specialized-models">
+<div id="architectural-layer-for-specialized-models">
 <section id="section-5">
-      <h2 id="name-hub-repository-of-specializ">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-hub-repository-of-specializ" class="section-name selfRef">Hub: Repository of Specialized Models</a>
+      <h2 id="name-architectural-layer-for-spe">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-architectural-layer-for-spe" class="section-name selfRef">Architectural layer for Specialized Models</a>
       </h2>
-<div id="concept-and-architecture-of-a-hub">
+<div id="repository-architecture">
 <section id="section-5.1">
-        <h3 id="name-concept-and-architecture-of">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-concept-and-architecture-of" class="section-name selfRef">Concept and Architecture of a Hub</a>
+        <h3 id="name-repository-architecture">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-repository-architecture" class="section-name selfRef">Repository Architecture</a>
         </h3>
-<p id="section-5.1-1">A Hub is a structured repository where specialized adapters are stored, indexed, and shared.
+<p id="section-5.1-1">A structured repository where specialized adapters are stored, indexed, and shared
+is also referred to as Hub.
 It enables efficient reuse and modularity. The architecture typically includes:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.1-2.1">
             <p id="section-5.1-2.1.1">Adapter storage<a href="#section-5.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.1-2.2">
-            <p id="section-5.1-2.2.1">Metadata index (domain, use case, version)<a href="#section-5.1-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.1-2.2.1">Transfer learning methods<a href="#section-5.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.1-2.3">
-            <p id="section-5.1-2.3.1">Dependency tracking for composite models<a href="#section-5.1-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-5.1-2.3.1">AI Agents<a href="#section-5.1-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.1-3">In addition, there are:<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.1-4.1">
+            <p id="section-5.1-4.1.1">Metadata index (domain, use case, version)<a href="#section-5.1-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-4.2">
+            <p id="section-5.1-4.2.1">Dependency tracking for composite models<a href="#section-5.1-4.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
-<div id="organizing-and-indexing-adapters-for-networking-tasks">
+<div id="organizing-and-indexing-adapters">
 <section id="section-5.2">
         <h3 id="name-organizing-and-indexing-ada">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-organizing-and-indexing-ada" class="section-name selfRef">Organizing and Indexing Adapters for Networking Tasks</a>
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-organizing-and-indexing-ada" class="section-name selfRef">Organizing and Indexing Adapters</a>
         </h3>
 <p id="section-5.2-1">Adapters can be categorized by networking domain (e.g., security, QoS, routing) and intent granularity (e.g., traffic type, SLA constraint).
 Cross-indexing improves discoverability and composability.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="examples-of-ibn-targeted-lora-adapters">
-<section id="section-5.3">
-        <h3 id="name-examples-of-ibn-targeted-lo">
-<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-examples-of-ibn-targeted-lo" class="section-name selfRef">Examples of IBN-Targeted LoRA Adapters</a>
-        </h3>
+<p id="section-5.2-2">Examples of IBN-Targeted Adapters are:<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.3-1.1">
-            <p id="section-5.3-1.1.1">Adapter A: IPv6 Segment Routing configuration<a href="#section-5.3-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.2-3.1">
+            <p id="section-5.2-3.1.1">Adapter A: IPv6 Segment Routing configuration<a href="#section-5.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.3-1.2">
-            <p id="section-5.3-1.2.1">Adapter B: QoS policy for video prioritization<a href="#section-5.3-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-3.2">
+            <p id="section-5.2-3.2.1">Adapter B: QoS policy for video prioritization<a href="#section-5.2-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.3-1.3">
-            <p id="section-5.3-1.3.1">Adapter C: Security baseline for zero-trust architectures<a href="#section-5.3-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-3.3">
+            <p id="section-5.2-3.3.1">Adapter C: Security baseline for zero-trust architectures<a href="#section-5.2-3.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
 </div>
 <div id="benefits-of-modular-and-shareable-specializations">
-<section id="section-5.4">
+<section id="section-5.3">
         <h3 id="name-benefits-of-modular-and-sha">
-<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-benefits-of-modular-and-sha" class="section-name selfRef">Benefits of Modular and Shareable Specializations</a>
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-benefits-of-modular-and-sha" class="section-name selfRef">Benefits of Modular and Shareable Specializations</a>
         </h3>
-<p id="section-5.4-1">Operators can quickly compose or replace adapters based on current intents, improving agility and reducing the cost of specialization.
-LoRA Hub supports collaboration and community-driven model evolution.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">Operators can quickly compose or replace adapters based on current intents, improving agility and reducing the cost of specialization.
+For example, LoRA Hub supports collaboration and community-driven model evolution.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
-<div id="flow-model-fusion-and-evolution">
+<div id="model-fusion-and-evolution">
 <section id="section-6">
-      <h2 id="name-flow-model-fusion-and-evolu">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-flow-model-fusion-and-evolu" class="section-name selfRef">Flow: Model Fusion and Evolution</a>
+      <h2 id="name-model-fusion-and-evolution">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-model-fusion-and-evolution" class="section-name selfRef">Model Fusion and Evolution</a>
       </h2>
-<div id="concept-of-flow-for-adapter-composition">
+<div id="adapter-composition">
 <section id="section-6.1">
-        <h3 id="name-concept-of-flow-for-adapter">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-concept-of-flow-for-adapter" class="section-name selfRef">Concept of Flow for Adapter Composition</a>
+        <h3 id="name-adapter-composition">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-adapter-composition" class="section-name selfRef">Adapter Composition</a>
         </h3>
-<p id="section-6.1-1">Flow refers to the systematic combination of multiple adapters to form a new, composite model capable of handling complex, multi-domain intents.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-1">The systematic combination of multiple adapters to form a new, composite model capable of handling complex, multi-domain intents
+is also referred to as Flow.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="fusion-of-multiple-adapters-to-generate-new-models">
@@ -1650,19 +1687,21 @@ like "guarantee low latency for critical applications within zero-trust boundari
      +-------------------------+
      |        Base LLM         |
      +-------------------------+
-       |        |    ...   \
-       |        |           \
-+---------+ +----------+   +----------+
-| Adapter | | Adapter  |   | Adapter  |
-|   QoS   | | Security |...|     j    |
-+---------+ +----------+   +----------+
-        \        |            /
-         \       |    ...    /
-         +-------------------+
-         |     Composite     |
-         |    Specialized    |
-         |       Model       |
-         +-------------------+
+                  |
+     +-------------------------+
+     |       AI Agent          |
+     |  (Intent Translation)   |
+     +-------------------------+
+                  |
+     +------------+------------+
+     |  Adapters  |  Transfer  |
+     |            |  Learning  |
+     +------------+------------+
+                  |
+     +-------------------------+
+     |       AI Agent          |
+     |  (Model Propagation)    |
+     +-------------------------+
 </pre>
 </div>
 <figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
@@ -1681,7 +1720,7 @@ like "guarantee low latency for critical applications within zero-trust boundari
             <p id="section-6.3-1.1.1">Parse user intent<a href="#section-6.3-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-6.3-1.2">
-            <p id="section-6.3-1.2.1">Query LoRA Hub for relevant adapters<a href="#section-6.3-1.2.1" class="pilcrow">¶</a></p>
+            <p id="section-6.3-1.2.1">Query for relevant adapters<a href="#section-6.3-1.2.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-6.3-1.3">
             <p id="section-6.3-1.3.1">Dynamically load and fuse adapters<a href="#section-6.3-1.3.1" class="pilcrow">¶</a></p>
@@ -1690,15 +1729,9 @@ like "guarantee low latency for critical applications within zero-trust boundari
             <p id="section-6.3-1.4.1">Generate configuration<a href="#section-6.3-1.4.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
-</section>
-</div>
-<div id="case-study-multi-domain-network-management">
-<section id="section-6.4">
-        <h3 id="name-case-study-multi-domain-net">
-<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-case-study-multi-domain-net" class="section-name selfRef">Case Study: Multi-Domain Network Management</a>
-        </h3>
-<p id="section-6.4-1">A service provider managing both MPLS and SDN domains can fuse LoRA adapters for each to generate cross-domain policies
-automatically in response to high-level intents.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
+<p id="section-6.3-2">A case study can be the Multi-Domain Network Management.
+A service provider managing both MPLS and SDN domains can fuse LoRA adapters for each to generate cross-domain policies
+automatically in response to high-level intents.<a href="#section-6.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1735,10 +1768,10 @@ automatically in response to high-level intents.<a href="#section-6.4-1" class="
 aligning with the adaptive model requirements discussed in <span>[<a href="#AI-Challenges" class="cite xref">AI-Challenges</a>]</span>.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="benchmarking-specialized-models-accuracy-latency-and-resource-consumption">
+<div id="benchmarking-specialized-models">
 <section id="section-7.3">
         <h3 id="name-benchmarking-specialized-mo">
-<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-benchmarking-specialized-mo" class="section-name selfRef">Benchmarking Specialized Models: Accuracy, Latency, and Resource Consumption</a>
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-benchmarking-specialized-mo" class="section-name selfRef">Benchmarking Specialized Models</a>
         </h3>
 <p id="section-7.3-1">Key benchmarks include:<a href="#section-7.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1756,101 +1789,49 @@ aligning with the adaptive model requirements discussed in <span>[<a href="#AI-C
 </div>
 </section>
 </div>
-<div id="practical-frameworks-and-tools">
+<div id="agentic-ai-for-network-operations-and-management">
 <section id="section-8">
-      <h2 id="name-practical-frameworks-and-to">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-practical-frameworks-and-to" class="section-name selfRef">Practical Frameworks and Tools</a>
-      </h2>
-<div id="lora-fine-tuning-libraries">
-<section id="section-8.1">
-        <h3 id="name-lora-fine-tuning-libraries">
-<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-lora-fine-tuning-libraries" class="section-name selfRef">LoRA Fine-Tuning Libraries</a>
-        </h3>
-<ul class="normal">
-<li class="normal" id="section-8.1-1.1">
-            <p id="section-8.1-1.1.1">PEFT (Parameter-Efficient Fine-Tuning) <span>[<a href="#HF-PEFT" class="cite xref">HF-PEFT</a>]</span><a href="#section-8.1-1.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-8.1-1.2">
-            <p id="section-8.1-1.2.1">Hugging Face LoRA integration<a href="#section-8.1-1.2.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-</section>
-</div>
-<div id="lora-hub-implementations">
-<section id="section-8.2">
-        <h3 id="name-lora-hub-implementations">
-<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-lora-hub-implementations" class="section-name selfRef">LoRA Hub Implementations</a>
-        </h3>
-<ul class="normal">
-<li class="normal" id="section-8.2-1.1">
-            <p id="section-8.2-1.1.1">Model repositories using Hugging Face Hub structure<a href="#section-8.2-1.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-8.2-1.2">
-            <p id="section-8.2-1.2.1">Metadata indexing via JSON-LD for semantic search<a href="#section-8.2-1.2.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-</section>
-</div>
-<div id="toolchains-for-lora-flow-and-adapter-fusion">
-<section id="section-8.3">
-        <h3 id="name-toolchains-for-lora-flow-an">
-<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-toolchains-for-lora-flow-an" class="section-name selfRef">Toolchains for LoRA Flow and Adapter Fusion</a>
-        </h3>
-<ul class="normal">
-<li class="normal" id="section-8.3-1.1">
-            <p id="section-8.3-1.1.1">Adapter composition APIs<a href="#section-8.3-1.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-8.3-1.2">
-            <p id="section-8.3-1.2.1">Intent parsing frontends<a href="#section-8.3-1.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-8.3-1.3">
-            <p id="section-8.3-1.3.1">Deployment via Kubernetes with sidecar loading of adapters<a href="#section-8.3-1.3.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-</section>
-</div>
-</section>
-</div>
-<div id="logical-architecture-for-model-management">
-<section id="section-9">
-      <h2 id="name-logical-architecture-for-mo">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-logical-architecture-for-mo" class="section-name selfRef">Logical Architecture for Model Management</a>
+      <h2 id="name-agentic-ai-for-network-oper">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-agentic-ai-for-network-oper" class="section-name selfRef">Agentic AI for Network Operations and Management</a>
       </h2>
 <div id="overview">
-<section id="section-9.1">
+<section id="section-8.1">
         <h3 id="name-overview">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-overview" class="section-name selfRef">Overview</a>
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-overview" class="section-name selfRef">Overview</a>
         </h3>
-<p id="section-9.1-1">Drawing inspiration from the Analytics Logical Function (AnLF) and Model Training Logical Function (MTLF) architectures defined in 3GPP NWDAF,
-this section proposes a logical architecture to manage, store, and orchestrate AI models for Intent-Based Networking.
-The architecture introduces the following logical components:<a href="#section-9.1-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-9.1-2.1">
-            <p id="section-9.1-2.1.1">Model Repository Function (MRF): Stores adapters and base models.<a href="#section-9.1-2.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-9.1-2.2">
-            <p id="section-9.1-2.2.1">Model Training and Specialization Function (MTSF): Handles fine-tuning, evaluation, and versioning.<a href="#section-9.1-2.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-9.1-2.3">
-            <p id="section-9.1-2.3.1">Model Fusion and Composition Function (MFCF): Manages flow processes to create composite models.<a href="#section-9.1-2.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-9.1-2.4">
-            <p id="section-9.1-2.4.1">Intent Processing and Adapter Orchestration Function (IPOF): Dynamically selects, composes, and deploys adapters based on parsed intents.<a href="#section-9.1-2.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-9.1-2.5">
-            <p id="section-9.1-2.5.1">Telemetry Feedback Function (TFF): Continuously monitors performance and triggers model re-specialization when required.<a href="#section-9.1-2.5.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
+<p id="section-8.1-1">An AI agent uses one or more models to plan, make decisions, use tools, and execute workflows.
+A user makes a query that is translated into complex technical goals through an AI model.
+AI agents gather context from the live network data and other information before reasoning
+to determine the best solutions. The workflow in <a href="#fig3" class="auto internal xref">Figure 3</a> can be done by an AI Agent.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="logical-architecture-diagram">
-<section id="section-9.2">
+<section id="section-8.2">
         <h3 id="name-logical-architecture-diagra">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-logical-architecture-diagra" class="section-name selfRef">Logical Architecture Diagram</a>
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-logical-architecture-diagra" class="section-name selfRef">Logical Architecture Diagram</a>
         </h3>
+<p id="section-8.2-1">This section proposes a logical architecture to manage, store, and orchestrate AI models for Intent-Based Networking.
+The architecture introduces the following logical components:<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-8.2-2.1">
+            <p id="section-8.2-2.1.1">Model Repository Function (MRF): Stores adapters and base models.<a href="#section-8.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.2-2.2">
+            <p id="section-8.2-2.2.1">Model Training and Specialization Function (MTSF): Handles fine-tuning, evaluation, and versioning.<a href="#section-8.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.2-2.3">
+            <p id="section-8.2-2.3.1">Model Fusion and Composition Function (MFCF): Manages flow processes to create composite models.<a href="#section-8.2-2.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.2-2.4">
+            <p id="section-8.2-2.4.1">Intent Processing and Adapter Orchestration Function (IPOF): Dynamically selects, composes, and deploys adapters based on parsed intents.<a href="#section-8.2-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-8.2-2.5">
+            <p id="section-8.2-2.5.1">Telemetry Feedback Function (TFF): Continuously monitors performance and triggers model re-specialization when required.<a href="#section-8.2-2.5.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 <span id="name-logical-architecture-diagram"></span><div id="fig3">
 <figure id="figure-3">
-          <div class="alignLeft art-text artwork" id="section-9.2-1.1">
+          <div class="alignLeft art-text artwork" id="section-8.2-3.1">
 <pre>
 +----------------------------+
 |      Intent Interface      |
@@ -1886,58 +1867,58 @@ The architecture introduces the following logical components:<a href="#section-9
 </pre>
 </div>
 <figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
-<a href="#name-logical-architecture-diagram" class="selfRef">Logical Architecture Diagram</a>
+<a href="#name-logical-architecture-diagram" class="selfRef">Logical Architecture Diagram for an AI Agent</a>
           </figcaption></figure>
 </div>
 </section>
 </div>
 <div id="detailed-workflow">
-<section id="section-9.3">
+<section id="section-8.3">
         <h3 id="name-detailed-workflow">
-<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-detailed-workflow" class="section-name selfRef">Detailed Workflow</a>
+<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-detailed-workflow" class="section-name selfRef">Detailed Workflow</a>
         </h3>
-<ol start="1" type="1" class="normal type-1" id="section-9.3-1">
-<li id="section-9.3-1.1">
-            <p id="section-9.3-1.1.1">Intent Reception: User or application submits a high-level intent through the Intent Interface.<a href="#section-9.3-1.1.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-8.3-1">
+<li id="section-8.3-1.1">
+            <p id="section-8.3-1.1.1">Intent Reception: User or application submits a high-level intent through the Intent Interface.<a href="#section-8.3-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-9.3-1.2">
-            <p id="section-9.3-1.2.1">Adapter Orchestration: IPOF parses the intent, queries the MRF for relevant adapters, and orchestrates dynamic fusion via MFCF.<a href="#section-9.3-1.2.1" class="pilcrow">¶</a></p>
+          <li id="section-8.3-1.2">
+            <p id="section-8.3-1.2.1">Adapter Orchestration: IPOF parses the intent, queries the MRF for relevant adapters, and orchestrates dynamic fusion via MFCF.<a href="#section-8.3-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-9.3-1.3">
-            <p id="section-9.3-1.3.1">Model Fusion: MFCF composes adapters into a composite model tailored to the intent.<a href="#section-9.3-1.3.1" class="pilcrow">¶</a></p>
+          <li id="section-8.3-1.3">
+            <p id="section-8.3-1.3.1">Model Fusion: MFCF composes adapters into a composite model tailored to the intent.<a href="#section-8.3-1.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-9.3-1.4">
-            <p id="section-9.3-1.4.1">Deployment: The composite model is deployed into the IBN system to generate specific configurations.<a href="#section-9.3-1.4.1" class="pilcrow">¶</a></p>
+          <li id="section-8.3-1.4">
+            <p id="section-8.3-1.4.1">Deployment: The composite model is deployed into the IBN system to generate specific configurations.<a href="#section-8.3-1.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-9.3-1.5">
-            <p id="section-9.3-1.5.1">Telemetry Feedback: The TFF monitors the applied configurations' impact on network KPIs and feeds insights back to IPOF and MTSF.<a href="#section-9.3-1.5.1" class="pilcrow">¶</a></p>
+          <li id="section-8.3-1.5">
+            <p id="section-8.3-1.5.1">Telemetry Feedback: The TFF monitors the applied configurations' impact on network KPIs and feeds insights back to IPOF and MTSF.<a href="#section-8.3-1.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li id="section-9.3-1.6">
-            <p id="section-9.3-1.6.1">Re-Specialization: If performance deviates from expected thresholds, MTSF initiates LoRA re-training or fine-tuning using new data collected via TFF.<a href="#section-9.3-1.6.1" class="pilcrow">¶</a></p>
+          <li id="section-8.3-1.6">
+            <p id="section-8.3-1.6.1">Re-Specialization: If performance deviates from expected thresholds, MTSF initiates LoRA re-training or fine-tuning using new data collected via TFF.<a href="#section-8.3-1.6.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
 </section>
 </div>
 <div id="models-adaptation-and-orchestration">
-<section id="section-9.4">
+<section id="section-8.4">
         <h3 id="name-models-adaptation-and-orche">
-<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-models-adaptation-and-orche" class="section-name selfRef">Models Adaptation, and Orchestration</a>
+<a href="#section-8.4" class="section-number selfRef">8.4. </a><a href="#name-models-adaptation-and-orche" class="section-name selfRef">Models Adaptation, and Orchestration</a>
         </h3>
-<p id="section-9.4-1">This architecture closely follows the modularity principles of NWDAF's AnLF for real-time analytics and MTLF for model training and distribution,
+<p id="section-8.4-1">This architecture closely follows the modularity principles of NWDAF's AnLF for real-time analytics and MTLF for model training and distribution,
 enabling scalability, continuous learning, and rapid specialization across distributed edge and core network nodes.
 Each function can be independently scaled and containerized, ensuring fault tolerance and efficient resource utilization.
 This logical separation allows efficient model lifecycle management, supports federated learning, and can integrate
-with standard IBN orchestrators via REST APIs or 3GPP-compatible interfaces.<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+with standard IBN orchestrators via REST APIs or 3GPP-compatible interfaces.<a href="#section-8.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="network-digital-twin-ontology">
-<section id="section-10">
+<section id="section-9">
       <h2 id="name-network-digital-twin-ontolo">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-network-digital-twin-ontolo" class="section-name selfRef">Network Digital Twin Ontology</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-network-digital-twin-ontolo" class="section-name selfRef">Network Digital Twin Ontology</a>
       </h2>
-<p id="section-10-1"><span>[<a href="#AI-Deploy" class="cite xref">AI-Deploy</a>]</span> explains how Network Digital Twin (NDT) also needs to build distributed AI services. Similarly the proposed generative AI-enabled IBN architecture
+<p id="section-9-1"><span>[<a href="#AI-Deploy" class="cite xref">AI-Deploy</a>]</span> explains how Network Digital Twin (NDT) also needs to build distributed AI services. Similarly the proposed generative AI-enabled IBN architecture
 can be empowered with a NDT ontology, which serves as the semantic backbone that allows the system to represent, reason, and act upon the network's
 physical and logical states in a unified way.
 Since the adapters are categorized by networking domain and intent granularity with different quality parameters, the ontology has to be quality-driven,
@@ -1948,8 +1929,62 @@ Within the overall generative AI-enabled IBN model, the ontology provides a mult
 and physical infrastructure, supporting both top-down intent translation and bottom-up feedback from telemetry data. This ontology enhances the adapter fusion and
 orchestration processes by guiding AI models to interpret intents in the context of network quality objectives, select appropriate policy actions, and evaluate
 trade-offs between performance and efficiency. By embedding these semantic and quality-aware relationships, the NDT ontology enables the digital twin
-to operate as a continuously learning system, capable of dynamically optimizing network behavior, validating intents before deployment, and adapting to evolving conditions
-while maintaining compliance with quality and energy-efficiency goals.<a href="#section-10-1" class="pilcrow">¶</a></p>
+to operate as a continuously learning system, capable of dynamically optimizing network behavior, validating intents before deployment, and adapting to evolving conditions while maintaining compliance with quality and energy-efficiency goals.<a href="#section-9-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="frameworks-and-tools">
+<section id="section-10">
+      <h2 id="name-frameworks-and-tools">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-frameworks-and-tools" class="section-name selfRef">Frameworks and Tools</a>
+      </h2>
+<div id="fine-tuning-libraries">
+<section id="section-10.1">
+        <h3 id="name-fine-tuning-libraries">
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-fine-tuning-libraries" class="section-name selfRef">Fine-Tuning Libraries</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-10.1-1.1">
+            <p id="section-10.1-1.1.1">PEFT (Parameter-Efficient Fine-Tuning) <span>[<a href="#HF-PEFT" class="cite xref">HF-PEFT</a>]</span><a href="#section-10.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.1-1.2">
+            <p id="section-10.1-1.2.1">Hugging Face LoRA integration<a href="#section-10.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="repository-implementations">
+<section id="section-10.2">
+        <h3 id="name-repository-implementations">
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-repository-implementations" class="section-name selfRef">Repository Implementations</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-10.2-1.1">
+            <p id="section-10.2-1.1.1">Model repositories using Hugging Face Hub structure<a href="#section-10.2-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.2-1.2">
+            <p id="section-10.2-1.2.1">Metadata indexing via JSON-LD for semantic search<a href="#section-10.2-1.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="toolchains-for-adapter-fusion">
+<section id="section-10.3">
+        <h3 id="name-toolchains-for-adapter-fusi">
+<a href="#section-10.3" class="section-number selfRef">10.3. </a><a href="#name-toolchains-for-adapter-fusi" class="section-name selfRef">Toolchains for Adapter Fusion</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-10.3-1.1">
+            <p id="section-10.3-1.1.1">Adapter composition APIs<a href="#section-10.3-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.3-1.2">
+            <p id="section-10.3-1.2.1">Intent parsing frontends<a href="#section-10.3-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-10.3-1.3">
+            <p id="section-10.3-1.3.1">Deployment via Kubernetes with sidecar loading of adapters<a href="#section-10.3-1.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
 </section>
 </div>
 <div id="challenges-and-research-directions">
@@ -1957,10 +1992,10 @@ while maintaining compliance with quality and energy-efficiency goals.<a href="#
       <h2 id="name-challenges-and-research-dir">
 <a href="#section-11" class="section-number selfRef">11. </a><a href="#name-challenges-and-research-dir" class="section-name selfRef">Challenges and Research Directions</a>
       </h2>
-<div id="model-interoperability-in-lora-flow">
+<div id="model-interoperability">
 <section id="section-11.1">
-        <h3 id="name-model-interoperability-in-l">
-<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-model-interoperability-in-l" class="section-name selfRef">Model Interoperability in LoRA Flow</a>
+        <h3 id="name-model-interoperability">
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-model-interoperability" class="section-name selfRef">Model Interoperability</a>
         </h3>
 <p id="section-11.1-1">Ensuring consistent parameterization and preventing interference when fusing adapters.<a href="#section-11.1-1" class="pilcrow">¶</a></p>
 </section>
@@ -1973,10 +2008,10 @@ while maintaining compliance with quality and energy-efficiency goals.<a href="#
 <p id="section-11.2-1">Preventing malicious adapter injection and ensuring adapters respect security constraints.<a href="#section-11.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="governance-of-lora-repositories">
+<div id="governance-of-repositories">
 <section id="section-11.3">
-        <h3 id="name-governance-of-lora-reposito">
-<a href="#section-11.3" class="section-number selfRef">11.3. </a><a href="#name-governance-of-lora-reposito" class="section-name selfRef">Governance of LoRA Repositories</a>
+        <h3 id="name-governance-of-repositories">
+<a href="#section-11.3" class="section-number selfRef">11.3. </a><a href="#name-governance-of-repositories" class="section-name selfRef">Governance of Repositories</a>
         </h3>
 <p id="section-11.3-1">Managing trust, versioning, and deprecation of adapters.<a href="#section-11.3-1" class="pilcrow">¶</a></p>
 </section>
@@ -2040,11 +2075,11 @@ General security considerations can be found for IBN in <span>[<a href="#IBN" cl
 <dl class="references">
 <dt id="AI-Challenges">[AI-Challenges]</dt>
         <dd>
-<span class="refAuthor">François, J.</span>, <span class="refAuthor">Clemm, A.</span>, <span class="refAuthor">Papadimitriou, D.</span>, <span class="refAuthor">Fernandes, S.</span>, and <span class="refAuthor">S. Schneider</span>, <span class="refTitle">"Research Challenges in Coupling Artificial Intelligence and Network Management"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-ai-challenges-05</span>, <time datetime="2025-03-18" class="refDate">18 March 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-challenges-05">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-challenges-05</a>&gt;</span>. </dd>
+<span class="refAuthor">François, J.</span>, <span class="refAuthor">Clemm, A.</span>, <span class="refAuthor">Papadimitriou, D.</span>, <span class="refAuthor">Fernandes, S.</span>, and <span class="refAuthor">S. Schneider</span>, <span class="refTitle">"Research Challenges in Coupling Artificial Intelligence and Network Management"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-ai-challenges-06</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-challenges-06">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-challenges-06</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="AI-Deploy">[AI-Deploy]</dt>
         <dd>
-<span class="refAuthor">Hong, Y.</span>, <span class="refAuthor">Youn, J.</span>, <span class="refAuthor">Hong, S.</span>, <span class="refAuthor">Martinez-Julia, P.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Considerations of network/system for AI services"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-ai-deploy-02</span>, <time datetime="2025-10-20" class="refDate">20 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-deploy-02">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-deploy-02</a>&gt;</span>. </dd>
+<span class="refAuthor">Hong, Y.</span>, <span class="refAuthor">Youn, J.</span>, <span class="refAuthor">Hong, S.</span>, <span class="refAuthor">Martinez-Julia, P.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Considerations of network/system for AI services"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-ai-deploy-03</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-deploy-03">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ai-deploy-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="HF-PEFT">[HF-PEFT]</dt>
         <dd>
@@ -2056,7 +2091,7 @@ General security considerations can be found for IBN in <span>[<a href="#IBN" cl
 <dd class="break"></dd>
 <dt id="IBN-UseCases">[IBN-UseCases]</dt>
         <dd>
-<span class="refAuthor">Yao, K.</span>, <span class="refAuthor">Chen, D.</span>, <span class="refAuthor">Jeong, J. P.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Yang, C.</span>, <span class="refAuthor">Contreras, L. M.</span>, and <span class="refAuthor">G. Fioccola</span>, <span class="refTitle">"Use Cases and Practices for Intent-Based Networking"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-ibn-usecases-03</span>, <time datetime="2026-03-15" class="refDate">15 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ibn-usecases-03">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ibn-usecases-03</a>&gt;</span>. </dd>
+<span class="refAuthor">Yao, K.</span>, <span class="refAuthor">Chen, D.</span>, <span class="refAuthor">Jeong, J. P.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Yang, C.</span>, <span class="refAuthor">Contreras, L. M.</span>, and <span class="refAuthor">G. Fioccola</span>, <span class="refTitle">"Use Cases and Practices for Intent-Based Networking"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-ibn-usecases-04</span>, <time datetime="2026-10-27" class="refDate">27 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ibn-usecases-04">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-ibn-usecases-04</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="LoRA">[LoRA]</dt>
       <dd>
