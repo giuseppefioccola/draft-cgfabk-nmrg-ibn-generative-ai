@@ -5,7 +5,7 @@
 Network Management                                           P. Cassara'
 Internet-Draft                                                  A. Gotta
 Intended status: Informational                                  CNR-ISTI
-Expires: 2 May 2027                                          G. Fioccola
+Expires: 3 May 2027                                          G. Fioccola
                                                             A. Artigiani
                                                      Huawei Technologies
                                                                R. Burrai
@@ -14,7 +14,7 @@ Expires: 2 May 2027                                          G. Fioccola
                                                              M. Martalo'
                                                               V. Pilloni
                                                   University of Cagliari
-                                                         29 October 2026
+                                                         30 October 2026
 
 
                Generative AI for Intent-Based Networking
@@ -60,7 +60,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 May 2027.
+   This Internet-Draft will expire on 3 May 2027.
 
 Copyright Notice
 
@@ -105,7 +105,7 @@ Table of Contents
      8.2.  Logical Architecture Diagram
      8.3.  Detailed Workflow
      8.4.  Models Adaptation, and Orchestration
-   9.  Network Digital Twin Ontology
+   9.  Semantic Network Digital Twin
    10. Frameworks and Tools
      10.1.  Fine-Tuning Libraries
      10.2.  Repository Implementations
@@ -326,11 +326,11 @@ Table of Contents
    Transfer learning methods.
 
    +=============+==============+=============+=========+=============+
-   |Mechanism    |Target Labels |Compute cost |Target   |Primary Use  |
-   |             |needed        |             |accuracy |case         |
+   |Mechanism    |Target Labels |Compute Cost |Target   |Primary Use  |
+   |             |needed        |             |Accuracy |Case         |
    +=============+==============+=============+=========+=============+
-   |Full fine    |High (100s-   |High (Full   |Highest  |Major domain |
-   |tuning       |1000s)        |GPU re-train)|(95%+)   |shift,       |
+   |Full Fine-   |High (100s-   |High (Full   |Highest  |Major domain |
+   |Tuning       |1000s)        |GPU re-train)|(95%+)   |shift,       |
    |             |              |             |         |abundant     |
    |             |              |             |         |labels       |
    +-------------+--------------+-------------+---------+-------------+
@@ -568,36 +568,70 @@ Table of Contents
    federated learning, and can integrate with standard IBN orchestrators
    via REST APIs or 3GPP-compatible interfaces.
 
-9.  Network Digital Twin Ontology
+9.  Semantic Network Digital Twin
 
    [AI-Deploy] explains how Network Digital Twin (NDT) also needs to
    build distributed AI services.  Similarly the proposed generative AI-
-   enabled IBN architecture can be empowered with a NDT ontology, which
-   serves as the semantic backbone that allows the system to represent,
-   reason, and act upon the network's physical and logical states in a
-   unified way.  Since the adapters are categorized by networking domain
-   and intent granularity with different quality parameters, the
-   ontology has to be quality-driven, meaning that its core entities and
-   relationships are structured around quality indicators such as
-   latency, throughput, reliability, and energy efficiency.  The
-   ontology relies on a semantic representation so that every network
-   element (node, link, function) is described by its functional
-   attributes together with quantifiable quality parameters.  This
-   enables intelligent alignment between service requirements and
-   underlying resource capabilities through IBN.  Within the overall
-   generative AI-enabled IBN model, the ontology provides a multi-
-   layered abstraction that connects service requirements with traffic
-   parameters and physical infrastructure, supporting both top-down
-   intent translation and bottom-up feedback from telemetry data.  This
-   ontology enhances the adapter fusion and orchestration processes by
-   guiding AI models to interpret intents in the context of network
-   quality objectives, select appropriate policy actions, and evaluate
-   trade-offs between performance and efficiency.  By embedding these
-   semantic and quality-aware relationships, the NDT ontology enables
-   the digital twin to operate as a continuously learning system,
-   capable of dynamically optimizing network behavior, validating
-   intents before deployment, and adapting to evolving conditions while
-   maintaining compliance with quality and energy-efficiency goals.
+   enabled IBN architecture can be empowered with a NDT to support
+   intent interpretation, configuration evaluation, and continuous
+   adaptation.  An NDT ontology serves as the semantic backbone that
+   allows the system to represent, reason, and act upon the network's
+   physical and logical states in a unified way.  Since the adapters are
+   categorized by networking domain and intent granularity with
+   different quality parameters, the ontology has to be quality-driven,
+   meaning that its core entities and relationships are structured
+   around quality indicators such as latency, throughput, reliability,
+   and energy efficiency.  The ontology relies on a semantic
+   representation so that every network element (node, link, function)
+   is described by its functional attributes together with quantifiable
+   quality parameters.  This enables intelligent alignment between
+   service requirements and underlying resource capabilities through
+   IBN.  Within the overall generative AI-enabled IBN model, the
+   ontology provides a multi-layered abstraction that connects service
+   requirements with traffic parameters and physical infrastructure,
+   supporting both top-down intent translation and bottom-up feedback
+   from telemetry data.  This ontology enhances the adapter fusion and
+   orchestration processes by guiding AI models to interpret intents in
+   the context of network quality objectives, select appropriate policy
+   actions, and evaluate trade-offs between performance and efficiency.
+
+   Operational integration additionally requires network state data and
+   executable models capable of estimating the effects of configurations
+   generated by such models.  Depending on the use case, these models
+   may use simulation, emulation, analytical models, or learned
+   predictors.  An NDT-assisted AI-enabled IBN architecture would
+   introduce the following functionalities:
+
+   *  Intent contextualization: IPOF can query the NDT for topology,
+      resource availability, and operational conditions relevant to an
+      intent.  The ontology supports the mapping of the intent to
+      measurable objectives and resource constraints.
+
+   *  Configuration evaluation: before the application to the
+      operational network, candidate configurations generated using the
+      selected or composed models can be evaluated within the NDT.  The
+      evaluation can cover expected traffic conditions and selected
+      failure scenarios.  Predicted quality indicators and identified
+      constraint violations can be returned to IPOF to support
+      configuration revision or selection.
+
+   *  Telemetry feedback: data collected through TFF can update the NDT
+      state and support comparison between predicted and observed
+      outcomes.  Significant discrepancies can indicate a need to
+      recalibrate the NDT, reconsider the configuration, or assess when
+      model re-specialization is appropriate.
+
+   *  Model specialization and repository enrichment: MTSF can use the
+      selected scenarios and outcomes produced by the NDT for training
+      and evaluation.  MRF can associate adapters and composite models
+      with evaluation metadata, including the network scenarios, NDT
+      version, and applicable operating conditions.
+
+   These functionalities enable the NDT to operate as a continuously
+   learning system, capable of dynamically optimizing network behavior,
+   validating intents before deployment, and adapting to evolving
+   conditions while maintaining compliance with quality and energy-
+   efficiency goals.
 
 10.  Frameworks and Tools
 
