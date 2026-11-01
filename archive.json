@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-10-29T03:43:30.245450+00:00",
+  "timestamp": "2026-11-01T03:34:42.356373+00:00",
   "repo": "giuseppefioccola/draft-cgfabk-nmrg-ibn-generative-ai",
   "labels": [
     {
@@ -50,5 +50,34 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOPGucg88AAAABLfTTNQ",
+      "title": "Update draft-cgfabk-nmrg-ibn-generative-ai.md",
+      "url": "https://github.com/giuseppefioccola/draft-cgfabk-nmrg-ibn-generative-ai/pull/1",
+      "state": "MERGED",
+      "author": "giuseppefioccola",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2026-10-29T10:01:39Z",
+      "updatedAt": "2026-10-29T10:09:28Z",
+      "baseRepository": "giuseppefioccola/draft-cgfabk-nmrg-ibn-generative-ai",
+      "baseRefName": "main",
+      "baseRefOid": "999ddabfc76c6575bf2ada452e1e9deaff4b586d",
+      "headRepository": "giuseppefioccola/draft-cgfabk-nmrg-ibn-generative-ai",
+      "headRefName": "giuseppefioccola-patch-1",
+      "headRefOid": "a2e3b8a8d42c70bbb45e91b6847904b2ee911e81",
+      "closedAt": "2026-10-29T10:09:28Z",
+      "mergedAt": "2026-10-29T10:09:28Z",
+      "mergedBy": "giuseppefioccola",
+      "mergeCommit": {
+        "oid": "2353c7feff1b4ea3a7f4e822b86a5c4668f30853"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
